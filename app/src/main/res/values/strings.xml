@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CocktailMaster</string>
+    <string name="exception_parse_json">Not type Json</string>
 </resources>
