@@ -26,7 +26,8 @@ class CategoryRemoteDataSource : CategoryDataSource {
     }
 
     companion object {
-        var instance: CategoryRemoteDataSource? = null
+        private var instance: CategoryRemoteDataSource? = null
+
         fun getInstace() = instance ?: CategoryRemoteDataSource().also { instance = it }
     }
 }
