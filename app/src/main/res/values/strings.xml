@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">CocktailMaster</string>
+
     <string name="exception_parse_json">Not type Json</string>
+
+    <string name="text_some_drinks">Some Drinks</string>
+    <string name="text_des_drink">%s-%s-%s</string>
 </resources>

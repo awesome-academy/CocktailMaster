@@ -1,13 +1,13 @@
 package com.example.cocktailmaster.data.model
 
 data class Drink(
-    private val id: Int,
-    private val name: String,
-    private val category: String,
-    private val alcoholic: String,
-    private val glass: String,
-    private val instruction: String,
-    private val thumb: String,
-    private val ingredients: List<String>,
-    private val measure: List<String>
+     val id: Int,
+     val name: String,
+     val category: String,
+     val alcoholic: String,
+     val glass: String,
+     val instruction: String,
+     val thumb: String,
+     val ingredients: List<String>,
+     val measure: List<String>
 )
