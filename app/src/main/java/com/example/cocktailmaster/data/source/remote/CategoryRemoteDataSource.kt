@@ -1,7 +1,7 @@
 package com.example.cocktailmaster.data.source.remote
 
-import com.example.cocktailmaster.APINameConstant
-import com.example.cocktailmaster.ModelConstant
+import com.example.cocktailmaster.utils.APINameConstant
+import com.example.cocktailmaster.utils.ModelConstant
 import com.example.cocktailmaster.data.model.Category
 import com.example.cocktailmaster.data.source.CategoryDataSource
 import com.example.cocktailmaster.data.source.remote.api.APIQuery

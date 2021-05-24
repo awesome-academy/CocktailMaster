@@ -1,7 +1,7 @@
 package com.example.cocktailmaster.data.source.remote
 
-import com.example.cocktailmaster.APINameConstant
-import com.example.cocktailmaster.ModelConstant
+import com.example.cocktailmaster.utils.APINameConstant
+import com.example.cocktailmaster.utils.ModelConstant
 import com.example.cocktailmaster.data.model.Drink
 import com.example.cocktailmaster.data.source.RandomDrinkDataSource
 import com.example.cocktailmaster.data.source.remote.api.APIQuery
@@ -15,19 +15,17 @@ const val DRINK_REQUEST_NUMBER = 4
 @Suppress("DEPRECATION")
 class RandomDrinkRemoteDataSource : RandomDrinkDataSource {
     override fun getRandomDrinks(callback: RequestAPICallback<List<Drink>>) {
-        RemoteAsysntask(callback) {
-            getRandomDrinks()
-        }.execute()
+        for(i in 0..DRINK_REQUEST_NUMBER) {
+            RemoteAsysntask(callback) {
+                getRandomDrinks()
+            }.execute()
+        }
     }
 
     private fun getRandomDrinks(): List<Drink> {
-        val drinks: MutableList<Drink> = ArrayList()
-        for(i in 0..DRINK_REQUEST_NUMBER) {
-            val jsonObject = JSONObject(httpRequestAPI(APIQuery.querryRandomDrink()))
-            val jsonArray = jsonObject.optJSONArray(APINameConstant.DRINKS)
-            drinks.addAll(parseToJsonArray(ModelConstant.DRINK, jsonArray))
-        }
-        return drinks
+        val jsonObject = JSONObject(httpRequestAPI(APIQuery.querryRandomDrink()))
+        val jsonArray = jsonObject.optJSONArray(APINameConstant.DRINKS)
+        return parseToJsonArray(ModelConstant.DRINK, jsonArray)
     }
 
     companion object {

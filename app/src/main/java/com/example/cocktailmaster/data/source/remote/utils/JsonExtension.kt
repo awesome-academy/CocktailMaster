@@ -1,6 +1,6 @@
 package com.example.cocktailmaster.data.source.remote.utils
 
-import com.example.cocktailmaster.ModelConstant
+import com.example.cocktailmaster.utils.ModelConstant
 import com.example.cocktailmaster.R
 import com.example.cocktailmaster.data.model.Category
 import com.example.cocktailmaster.data.model.Drink
