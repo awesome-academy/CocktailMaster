@@ -11,6 +11,7 @@ import com.example.cocktailmaster.data.source.remote.utils.httpRequestAPI
 import com.example.cocktailmaster.data.source.remote.utils.parseToJsonArray
 import org.json.JSONObject
 
+const val DRINK_REQUEST_NUMBER = 4
 @Suppress("DEPRECATION")
 class RandomDrinkRemoteDataSource : RandomDrinkDataSource {
     override fun getRandomDrinks(callback: RequestAPICallback<List<Drink>>) {
@@ -20,9 +21,13 @@ class RandomDrinkRemoteDataSource : RandomDrinkDataSource {
     }
 
     private fun getRandomDrinks(): List<Drink> {
-        val jsonObject = JSONObject(httpRequestAPI(APIQuery.querryRandomDrink()))
-        val jsonArray = jsonObject.optJSONArray(APINameConstant.DRINKS)
-        return parseToJsonArray(ModelConstant.DRINK, jsonArray)
+        val drinks: MutableList<Drink> = ArrayList()
+        for(i in 0..DRINK_REQUEST_NUMBER) {
+            val jsonObject = JSONObject(httpRequestAPI(APIQuery.querryRandomDrink()))
+            val jsonArray = jsonObject.optJSONArray(APINameConstant.DRINKS)
+            drinks.addAll(parseToJsonArray(ModelConstant.DRINK, jsonArray))
+        }
+        return drinks
     }
 
     companion object {
