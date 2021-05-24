@@ -1,4 +1,4 @@
-package com.example.cocktailmaster
+package com.example.cocktailmaster.utils
 
 object ModelConstant {
     const val DRINK = "drink"

@@ -5,4 +5,7 @@
 
     <string name="text_some_drinks">Some Drinks</string>
     <string name="text_des_drink">%s-%s-%s</string>
+    <string name="text_categories">Categories</string>
+    <string name="text_ingredients">Ingredients</string>
+    <string name="text_seeAll">See all ></string>
 </resources>
