@@ -7,9 +7,11 @@ import com.example.cocktailmaster.data.model.Drink
 interface HomeContract {
     interface Presenter: BasePresenter {
         fun getRandomDrinks()
+        fun getAllAlphabets()
     }
 
     interface View: BaseView {
         fun loadRandomDrinks(drinks: List<Drink>)
+        fun loadAlphabets(alphabets: List<Char>)
     }
 }
