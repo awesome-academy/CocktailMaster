@@ -3,6 +3,7 @@ package com.example.cocktailmaster.ui.home
 import com.example.cocktailmaster.data.model.Drink
 import com.example.cocktailmaster.data.repository.RandomDrinksRemoteRepository
 import com.example.cocktailmaster.data.source.remote.utils.RequestAPICallback
+import com.example.cocktailmaster.utils.AlphabetsConstant
 
 class HomePresenter(
     private val view: HomeContract.View,
@@ -10,7 +11,7 @@ class HomePresenter(
 ) : HomeContract.Presenter {
     override fun getRandomDrinks() {
         view.showLoading()
-        drinksRepo.getRandomDrinks(object : RequestAPICallback<List<Drink>>{
+        drinksRepo.getRandomDrinks(object : RequestAPICallback<List<Drink>> {
             override fun onSuccess(data: List<Drink>) {
                 view.hideLoading()
                 view.loadRandomDrinks(data)
@@ -23,7 +24,12 @@ class HomePresenter(
         })
     }
 
+    override fun getAllAlphabets() {
+        view.loadAlphabets(AlphabetsConstant.ALPHABETS.toList())
+    }
+
     override fun excute() {
         getRandomDrinks()
+        getAllAlphabets()
     }
 }

@@ -9,3 +9,7 @@ object ModelConstant {
 object APINameConstant {
     const val DRINKS = "drinks"
 }
+
+object AlphabetsConstant {
+    val ALPHABETS = "abcdefghijklmnopqrstuvwxyz".toCharArray()
+}

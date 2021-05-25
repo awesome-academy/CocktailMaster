@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <TextView
+        android:id="@+id/textIngredients"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_20"
+        android:text="@string/text_ingredients"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/sp_20"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textSeeAllIngredient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:padding="@dimen/dp_8"
+        android:text="@string/text_seeAll"
+        android:textColor="@color/color_olso_grey"
+        android:textSize="@dimen/sp_16"
+        app:layout_constraintBottom_toBottomOf="@id/textIngredients"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textIngredients" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/linear_vodka"
+            app:layout_constraintTop_toBottomOf="@id/textIngredients"
+            android:layout_marginTop="@dimen/dp_10"
+            app:layout_constraintRight_toLeftOf="@id/linear_gin"
+            app:layout_constraintLeft_toLeftOf="@id/textIngredients"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_120"
+                android:scaleType="fitXY"
+                android:src="@drawable/vodka" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_4"
+                android:text="@string/text_vodka"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/sp_16" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/linear_gin"
+            app:layout_constraintTop_toTopOf="@id/linear_vodka"
+            app:layout_constraintBottom_toBottomOf="@id/linear_vodka"
+            app:layout_constraintLeft_toRightOf="@id/linear_vodka"
+            app:layout_constraintRight_toLeftOf="@id/linear_rum"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_120"
+                android:scaleType="fitXY"
+                android:src="@drawable/gin" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_4"
+                android:text="@string/text_gin"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/sp_16" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/linear_rum"
+            app:layout_constraintRight_toLeftOf="@id/linear_tequila"
+            app:layout_constraintTop_toTopOf="@id/linear_gin"
+            app:layout_constraintBottom_toBottomOf="@id/linear_gin"
+            app:layout_constraintLeft_toRightOf="@id/linear_gin"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_120"
+                android:scaleType="fitXY"
+                android:src="@drawable/rum" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_4"
+                android:text="@string/text_rum"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/sp_16" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/linear_tequila"
+            app:layout_constraintTop_toTopOf="@id/linear_rum"
+            app:layout_constraintBottom_toBottomOf="@id/linear_rum"
+            app:layout_constraintLeft_toRightOf="@id/linear_rum"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_120"
+                android:scaleType="fitXY"
+                android:src="@drawable/tequila" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_4"
+                android:text="@string/text_tequila"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/sp_16" />
+        </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
