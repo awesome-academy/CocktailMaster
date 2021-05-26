@@ -29,5 +29,5 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textAlphabet"
         app:spanCount="8"
-        tools:listitem="@layout/alphabet_item" />
+        tools:listitem="@layout/item_alphabet" />
 </androidx.constraintlayout.widget.ConstraintLayout>

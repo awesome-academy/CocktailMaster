@@ -12,7 +12,7 @@ import com.example.cocktailmaster.data.source.remote.utils.parseToJsonArray
 import org.json.JSONObject
 
 @Suppress("DEPRECATION")
-class CategoryRemoteDataSource : CategoryDataSource {
+class CategoryRemoteDataSource private constructor(): CategoryDataSource {
     override fun getCategories(callback: RequestAPICallback<List<Category>>) {
         RemoteAsysntask(callback) {
             getCategories()

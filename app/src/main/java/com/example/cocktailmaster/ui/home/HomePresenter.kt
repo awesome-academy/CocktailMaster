@@ -14,18 +14,17 @@ class HomePresenter(
         drinksRepo.getRandomDrinks(object : RequestAPICallback<List<Drink>> {
             override fun onSuccess(data: List<Drink>) {
                 view.hideLoading()
-                view.loadRandomDrinks(data)
+                view.showRandomDrinks(data)
             }
 
             override fun onFailed() {
-                view.hideLoading()
                 view.showError()
             }
         })
     }
 
     override fun getAllAlphabets() {
-        view.loadAlphabets(AlphabetsConstant.ALPHABETS.toList())
+        view.showAlphabets(AlphabetsConstant.ALPHABETS.toList())
     }
 
     override fun excute() {

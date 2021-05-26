@@ -4,14 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cocktailmaster.databinding.AlphabetItemBinding
+import com.example.cocktailmaster.databinding.ItemAlphabetBinding
 
 class AlphabetAdapter : RecyclerView.Adapter<AlphabetAdapter.ViewHolder>() {
     private val alphabets = mutableListOf<Char>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
-            AlphabetItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemAlphabetBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding.root, binding)
     }
 
@@ -31,7 +31,7 @@ class AlphabetAdapter : RecyclerView.Adapter<AlphabetAdapter.ViewHolder>() {
 
     class ViewHolder(
         itemView: View,
-        private val binding: AlphabetItemBinding
+        private val binding: ItemAlphabetBinding
     ) : RecyclerView.ViewHolder(itemView) {
         fun bindView(s: Char) {
             binding.textAlphabetItem.text = s.toString()
