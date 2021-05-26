@@ -6,6 +6,7 @@ import com.example.cocktailmaster.data.model.Drink
 import com.example.cocktailmaster.databinding.FragmentHomeBinding
 import com.example.cocktailmaster.ui.RepositoryUtils
 import com.example.cocktailmaster.ui.home.adapter.AlphabetAdapter
+import com.example.cocktailmaster.ui.home.adapter.RandomDrinksAdapter
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate),
     HomeContract.View {
@@ -26,13 +27,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         presenter?.excute()
     }
 
-    override fun loadRandomDrinks(drinks: List<Drink>) {
+    override fun showRandomDrinks(drinks: List<Drink>) {
         binding.textRandomDrinks.visibility = View.VISIBLE
         this.drinks.addAll(drinks)
         drinkAdapter.setDrinks(this.drinks)
     }
 
-    override fun loadAlphabets(alphabets: List<Char>) {
+    override fun showAlphabets(alphabets: List<Char>) {
         alphabetAdapter.setAlphabets(alphabets)
     }
 

@@ -89,7 +89,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
-                    android:src="@drawable/cocktail" />
+                    android:src="@drawable/img_cocktail" />
 
                 <View
                     android:layout_width="match_parent"
@@ -122,7 +122,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
-                    android:src="@drawable/cocoa" />
+                    android:src="@drawable/img_cocoa" />
 
                 <View
                     android:layout_width="match_parent"

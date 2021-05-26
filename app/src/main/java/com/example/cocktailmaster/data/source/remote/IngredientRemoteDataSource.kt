@@ -12,7 +12,7 @@ import com.example.cocktailmaster.data.source.remote.utils.parseToJsonArray
 import org.json.JSONObject
 
 @Suppress("DEPRECATION")
-class IngredientRemoteDataSource : IngredientDataSource {
+class IngredientRemoteDataSource private constructor() : IngredientDataSource {
     override fun getIngredients(callback: RequestAPICallback<List<Ingredient>>) {
         RemoteAsysntask(callback) {
             getIngredients()

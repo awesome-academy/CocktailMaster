@@ -11,7 +11,7 @@ interface HomeContract {
     }
 
     interface View: BaseView {
-        fun loadRandomDrinks(drinks: List<Drink>)
-        fun loadAlphabets(alphabets: List<Char>)
+        fun showRandomDrinks(drinks: List<Drink>)
+        fun showAlphabets(alphabets: List<Char>)
     }
 }

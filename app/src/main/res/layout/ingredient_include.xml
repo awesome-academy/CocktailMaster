@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="contentDescription"
     android:background="@android:color/white">
 
     <TextView
@@ -43,9 +45,9 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_120"
+                android:layout_height="@dimen/dp_100"
                 android:scaleType="fitXY"
-                android:src="@drawable/vodka" />
+                android:src="@drawable/img_vodka" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -69,9 +71,9 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_120"
+                android:layout_height="@dimen/dp_100"
                 android:scaleType="fitXY"
-                android:src="@drawable/gin" />
+                android:src="@drawable/img_gin" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -95,9 +97,9 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_120"
+                android:layout_height="@dimen/dp_100"
                 android:scaleType="fitXY"
-                android:src="@drawable/rum" />
+                android:src="@drawable/img_rum" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -122,9 +124,9 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_120"
+                android:layout_height="@dimen/dp_100"
                 android:scaleType="fitXY"
-                android:src="@drawable/tequila" />
+                android:src="@drawable/img_tequila" />
 
             <TextView
                 android:layout_width="wrap_content"

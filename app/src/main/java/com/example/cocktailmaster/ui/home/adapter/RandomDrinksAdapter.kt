@@ -1,4 +1,4 @@
-package com.example.cocktailmaster.ui.home
+package com.example.cocktailmaster.ui.home.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cocktailmaster.R
 import com.example.cocktailmaster.data.model.Drink
-import com.example.cocktailmaster.databinding.DrinkItemBinding
+import com.example.cocktailmaster.databinding.ItemDrinkBinding
 import com.example.cocktailmaster.utils.loadImage
 
 class RandomDrinksAdapter : RecyclerView.Adapter<RandomDrinksAdapter.ViewHolder>() {
@@ -17,7 +17,7 @@ class RandomDrinksAdapter : RecyclerView.Adapter<RandomDrinksAdapter.ViewHolder>
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        val binding = DrinkItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemDrinkBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding.root, binding, parent.context)
     }
 
@@ -28,7 +28,7 @@ class RandomDrinksAdapter : RecyclerView.Adapter<RandomDrinksAdapter.ViewHolder>
     override fun getItemCount() = drinks.size
 
     fun setDrinks(drinks: List<Drink>) {
-        this.drinks.run {
+        this.drinks.apply {
             clear()
             addAll(drinks)
             notifyDataSetChanged()
@@ -37,7 +37,7 @@ class RandomDrinksAdapter : RecyclerView.Adapter<RandomDrinksAdapter.ViewHolder>
 
     class ViewHolder(
         itemView: View,
-        private val binding: DrinkItemBinding,
+        private val binding: ItemDrinkBinding,
         private val context: Context
     ) : RecyclerView.ViewHolder(itemView) {
 
