@@ -8,10 +8,12 @@ interface HomeContract {
     interface Presenter: BasePresenter {
         fun getRandomDrinks()
         fun getAllAlphabets()
+        fun getSearchDrinks(query: String)
     }
 
     interface View: BaseView {
         fun showRandomDrinks(drinks: List<Drink>)
         fun showAlphabets(alphabets: List<Char>)
+        fun showSearchDrinks(searchedDrinks: List<Drink>)
     }
 }

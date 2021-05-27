@@ -7,6 +7,7 @@ import com.example.cocktailmaster.data.source.remote.utils.RequestAPICallback
 class CategoryRemoteRepository private constructor(
     private val remote: CategoryDataSource
 ) : CategoryDataSource {
+
     override fun getCategories(callback: RequestAPICallback<List<Category>>) {
         remote.getCategories(callback)
     }
