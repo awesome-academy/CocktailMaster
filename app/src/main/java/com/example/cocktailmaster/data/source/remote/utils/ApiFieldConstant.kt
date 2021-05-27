@@ -23,6 +23,7 @@ object DrinkConstant {
 object ParameterConstant {
     const val CATEGORY_PARAM = "c"
     const val INGREDIENT_PARAM = "i"
+    const val SEARCH_PARAM = "s"
 }
 
 object ValueConstant {

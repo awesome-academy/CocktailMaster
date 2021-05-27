@@ -28,4 +28,12 @@ object APIQuery {
         .appendPath(APIConstant.API_LIST)
         .appendQueryParameter(ParameterConstant.INGREDIENT_PARAM , ValueConstant.LIST_VALUE)
         .toString()
+
+    fun searchDrink(query: String) = Uri.Builder()
+        .scheme(APIConstant.SCHEME_API)
+        .authority(APIConstant.AUTHORITY)
+        .appendPath(APIConstant.API_CONTENT)
+        .appendPath(APIConstant.API_SEARCH)
+        .appendQueryParameter(ParameterConstant.SEARCH_PARAM , query)
+        .toString()
 }

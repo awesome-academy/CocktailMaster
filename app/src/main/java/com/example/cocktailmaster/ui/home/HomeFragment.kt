@@ -1,29 +1,53 @@
 package com.example.cocktailmaster.ui.home
 
 import android.view.View
+import androidx.appcompat.widget.SearchView
+import com.example.cocktailmaster.R
 import com.example.cocktailmaster.base.BaseFragment
 import com.example.cocktailmaster.data.model.Drink
 import com.example.cocktailmaster.databinding.FragmentHomeBinding
 import com.example.cocktailmaster.ui.RepositoryUtils
 import com.example.cocktailmaster.ui.home.adapter.AlphabetAdapter
+import com.example.cocktailmaster.ui.home.adapter.DrinksSearchAdapter
 import com.example.cocktailmaster.ui.home.adapter.RandomDrinksAdapter
+import kotlinx.android.synthetic.main.alphabets_include.*
 
-class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate),
-    HomeContract.View {
+class HomeFragment :
+    BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate),
+    HomeContract.View,
+    View.OnClickListener,
+    SearchView.OnCloseListener,
+    SearchView.OnQueryTextListener {
 
     private var presenter: HomePresenter? = null
     private val drinkAdapter = RandomDrinksAdapter()
     private val alphabetAdapter = AlphabetAdapter()
+    private val drinkSearchAdapter = DrinksSearchAdapter()
     private val drinks = mutableListOf<Drink>()
 
     override fun initViews() {
-        binding.recyclerDrinks.adapter = drinkAdapter
-        binding.includeAlphabets.recyclerAlphabets.adapter = alphabetAdapter
+        listOf(binding.imageSearch, binding.imageFavourite).forEach {
+            it.setOnClickListener(this)
+        }
+        binding.apply {
+            recyclerDrinks.adapter = drinkAdapter
+            recyclerAlphabets.adapter = alphabetAdapter
+            recyclerDrinksSearch.adapter = drinkSearchAdapter
+
+            searchDrinks.apply {
+                setOnCloseListener(this@HomeFragment)
+                setOnQueryTextListener(this@HomeFragment)
+            }
+        }
+
     }
 
     override fun initData() {
-        val randomDrinksRepo = RepositoryUtils.getRandomDrinksRepo()
-        presenter = HomePresenter(this, randomDrinksRepo)
+        presenter = HomePresenter(
+            this,
+            RepositoryUtils.getRandomDrinksRepo(),
+            RepositoryUtils.getSearchDrinksRepo()
+        )
         presenter?.excute()
     }
 
@@ -37,6 +61,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         alphabetAdapter.setAlphabets(alphabets)
     }
 
+    override fun showSearchDrinks(searchedDrinks: List<Drink>) {
+        drinkSearchAdapter.setDrinks(searchedDrinks)
+    }
+
     override fun showError() {
     }
 
@@ -46,5 +74,32 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     override fun hideLoading() {
         binding.progressDrinkLoading.visibility = View.GONE
+    }
+
+    override fun onClick(v: View) {
+        if (v.id == R.id.imageSearch) {
+            binding.searchDrinks.visibility = View.VISIBLE
+        }
+    }
+
+    override fun onClose(): Boolean {
+        binding.apply {
+            searchDrinks.visibility = View.GONE
+            recyclerDrinksSearch.visibility = View.GONE
+            cardDrinks.visibility = View.VISIBLE
+        }
+
+        return false
+    }
+
+    override fun onQueryTextSubmit(query: String?) = false
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        binding.apply {
+            recyclerDrinksSearch.visibility = View.VISIBLE
+            cardDrinks.visibility = View.GONE
+        }
+        presenter?.getSearchDrinks(newText.toString())
+        return false
     }
 }
