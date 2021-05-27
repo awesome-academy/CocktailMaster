@@ -51,9 +51,9 @@ class HomeFragment :
         presenter?.excute()
     }
 
-    override fun showRandomDrinks(drinks: List<Drink>) {
+    override fun showRandomDrink(drinks: Drink) {
         binding.textRandomDrinks.visibility = View.VISIBLE
-        this.drinks.addAll(drinks)
+        this.drinks.add(drinks)
         drinkAdapter.setDrinks(this.drinks)
     }
 

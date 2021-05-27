@@ -14,10 +14,10 @@ class HomePresenter(
 
     override fun getRandomDrinks() {
         view.showLoading()
-        drinksRepo.getRandomDrinks(object : RequestAPICallback<List<Drink>> {
-            override fun onSuccess(data: List<Drink>) {
+        drinksRepo.getRandomDrinks(object : RequestAPICallback<Drink> {
+            override fun onSuccess(data: Drink) {
                 view.hideLoading()
-                view.showRandomDrinks(data)
+                view.showRandomDrink(data)
             }
 
             override fun onFailed() {
@@ -31,7 +31,7 @@ class HomePresenter(
     }
 
     override fun getSearchDrinks(query: String) {
-        searchRepo.searchDrinks(query , object : RequestAPICallback<List<Drink>>{
+        searchRepo.searchDrinks(query, object : RequestAPICallback<List<Drink>> {
             override fun onSuccess(data: List<Drink>) {
                 view.showSearchDrinks(data)
             }
