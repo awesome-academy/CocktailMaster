@@ -7,9 +7,11 @@ import com.example.cocktailmaster.base.BaseFragment
 import com.example.cocktailmaster.data.model.Drink
 import com.example.cocktailmaster.databinding.FragmentHomeBinding
 import com.example.cocktailmaster.ui.RepositoryUtils
+import com.example.cocktailmaster.ui.detaildrink.DetailDrinkFragment
 import com.example.cocktailmaster.ui.home.adapter.AlphabetAdapter
 import com.example.cocktailmaster.ui.home.adapter.DrinksSearchAdapter
 import com.example.cocktailmaster.ui.home.adapter.RandomDrinksAdapter
+import com.example.cocktailmaster.ui.replaceFragment
 import kotlinx.android.synthetic.main.alphabets_include.*
 
 class HomeFragment :
@@ -20,7 +22,7 @@ class HomeFragment :
     SearchView.OnQueryTextListener {
 
     private var presenter: HomePresenter? = null
-    private val drinkAdapter = RandomDrinksAdapter()
+    private val drinkAdapter = RandomDrinksAdapter(::onClickDrinkItem)
     private val alphabetAdapter = AlphabetAdapter()
     private val drinkSearchAdapter = DrinksSearchAdapter()
     private val drinks = mutableListOf<Drink>()
@@ -43,18 +45,21 @@ class HomeFragment :
     }
 
     override fun initData() {
+        drinks.clear()
         presenter = HomePresenter(
             this,
-            RepositoryUtils.getRandomDrinksRepo(),
-            RepositoryUtils.getSearchDrinksRepo()
+            RepositoryUtils.getDrinkRepo()
         )
         presenter?.excute()
     }
 
-    override fun showRandomDrink(drinks: Drink) {
+    override fun showRandomDrink(drink: Drink) {
         binding.textRandomDrinks.visibility = View.VISIBLE
-        this.drinks.add(drinks)
-        drinkAdapter.setDrinks(this.drinks)
+        this.drinks.apply {
+            add(drink)
+            drinkAdapter.setDrinks(this)
+        }
+        binding.cardDrinks.visibility = View.VISIBLE
     }
 
     override fun showAlphabets(alphabets: List<Char>) {
@@ -101,5 +106,13 @@ class HomeFragment :
         }
         presenter?.getSearchDrinks(newText.toString())
         return false
+    }
+
+    private fun onClickDrinkItem(drink: Drink) {
+        fragmentManager?.let {
+            replaceFragment(
+                it, DetailDrinkFragment.getInstance(drink)
+            )
+        }
     }
 }

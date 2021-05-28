@@ -1,22 +1,31 @@
 package com.example.cocktailmaster.data.source.remote
 
 import com.example.cocktailmaster.data.model.Drink
-import com.example.cocktailmaster.data.source.SearchDrinkDataSource
+import com.example.cocktailmaster.data.source.DrinksDataSource
 import com.example.cocktailmaster.data.source.remote.api.APIQuery
-import com.example.cocktailmaster.data.source.remote.utils.RemoteAsysntask
-import com.example.cocktailmaster.data.source.remote.utils.RequestAPICallback
-import com.example.cocktailmaster.data.source.remote.utils.httpRequestAPI
-import com.example.cocktailmaster.data.source.remote.utils.parseToJsonArray
+import com.example.cocktailmaster.data.source.remote.utils.*
 import com.example.cocktailmaster.utils.APINameConstant
 import com.example.cocktailmaster.utils.ModelConstant
 import org.json.JSONObject
 
 @Suppress("DEPRECATION")
-class SearchDrinkRemoteDataSource private constructor() : SearchDrinkDataSource {
+class DrinksRemoteDataSource private constructor() : DrinksDataSource {
     override fun searchDrinks(query: String, callback: RequestAPICallback<List<Drink>>) {
         RemoteAsysntask(callback) {
             getListDrinkSearch(query)
         }.execute()
+    }
+
+    override fun getRandomDrinks(callback: RequestAPICallback<Drink>) {
+        RemoteRandomDrinkAsynctask(callback) {
+            getRandomDrinks()[0]
+        }.execute()
+    }
+
+    private fun getRandomDrinks(): List<Drink> {
+        val jsonObject = JSONObject(httpRequestAPI(APIQuery.querryRandomDrink()))
+        val jsonArray = jsonObject.optJSONArray(APINameConstant.DRINKS)
+        return parseToJsonArray(ModelConstant.DRINK, jsonArray)
     }
 
     private fun getListDrinkSearch(queryText: String): List<Drink> {
@@ -26,8 +35,8 @@ class SearchDrinkRemoteDataSource private constructor() : SearchDrinkDataSource 
     }
 
     companion object {
-        private var instance: SearchDrinkRemoteDataSource? = null
+        private var instance: DrinksRemoteDataSource? = null
 
-        fun getInstance() = instance ?: SearchDrinkRemoteDataSource().also { instance = it }
+        fun getInstance() = instance ?: DrinksRemoteDataSource().also { instance = it }
     }
 }
