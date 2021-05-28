@@ -10,7 +10,9 @@ import com.example.cocktailmaster.data.model.Drink
 import com.example.cocktailmaster.databinding.ItemDrinkBinding
 import com.example.cocktailmaster.utils.loadImage
 
-class RandomDrinksAdapter : RecyclerView.Adapter<RandomDrinksAdapter.ViewHolder>() {
+class RandomDrinksAdapter(
+    private val onClickItem: (Drink) -> Unit
+) : RecyclerView.Adapter<RandomDrinksAdapter.ViewHolder>() {
     private var drinks = mutableListOf<Drink>()
 
     override fun onCreateViewHolder(
@@ -18,7 +20,7 @@ class RandomDrinksAdapter : RecyclerView.Adapter<RandomDrinksAdapter.ViewHolder>
         viewType: Int
     ): ViewHolder {
         val binding = ItemDrinkBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding.root, binding, parent.context)
+        return ViewHolder(binding.root, binding, parent.context, onClickItem)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -38,10 +40,20 @@ class RandomDrinksAdapter : RecyclerView.Adapter<RandomDrinksAdapter.ViewHolder>
     class ViewHolder(
         itemView: View,
         private val binding: ItemDrinkBinding,
-        private val context: Context
+        private val context: Context,
+        private val onClickItem: (Drink) -> Unit
     ) : RecyclerView.ViewHolder(itemView) {
 
+        private var drinkItem: Drink? = null
+
+        init {
+            itemView.setOnClickListener {
+                drinkItem?.let { onClickItem(it) }
+            }
+        }
+
         fun bindView(drink: Drink) {
+            drinkItem = drink
             binding.apply {
                 imageDrink.loadImage(drink.thumb)
                 textDrinkTitle.text = drink.name
