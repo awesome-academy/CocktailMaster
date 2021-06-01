@@ -5,7 +5,7 @@ package com.example.cocktailmaster.data.source.remote.utils
 import android.os.AsyncTask
 import com.example.cocktailmaster.data.model.Drink
 
-const val DRINK_REQUEST_NUMBER = 5
+const val DRINK_REQUEST_NUMBER = 6
 
 class RemoteRandomDrinkAsynctask(
     private val callback: RequestAPICallback<Drink>,

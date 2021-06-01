@@ -1,13 +1,14 @@
 package com.example.cocktailmaster.data.source.remote.utils
 
-import com.example.cocktailmaster.utils.ModelConstant
 import com.example.cocktailmaster.R
 import com.example.cocktailmaster.data.model.Category
 import com.example.cocktailmaster.data.model.Drink
 import com.example.cocktailmaster.data.model.Ingredient
+import com.example.cocktailmaster.utils.ModelConstant
 import org.json.JSONArray
 import org.json.JSONException
 
+const val nullStr = "null"
 inline fun <reified T> parseToJsonArray(model: String, jsonArray: JSONArray) = jsonArray.run {
     List(length()) {
         when (model) {
@@ -23,10 +24,16 @@ inline fun <reified T> parseToJsonArray(model: String, jsonArray: JSONArray) = j
                 val ingredients: MutableList<String> = ArrayList()
                 val measurements: MutableList<String> = ArrayList()
                 DrinkConstant.INGREDIENTS.forEach {
-                    ingredients.add(jsonObject.optString(it))
+                    val ingredient = jsonObject.optString(it)
+                    if (!ingredient.equals(nullStr) && !ingredient.isNullOrEmpty()) {
+                        ingredients.add(jsonObject.optString(it))
+                    }
                 }
                 DrinkConstant.MEASUREMENTS.forEach {
-                    measurements.add(jsonObject.optString(it))
+                    val measurement = jsonObject.optString(it)
+                    if (!measurement.equals(nullStr) && !measurement.isNullOrEmpty()) {
+                        measurements.add(jsonObject.optString(it))
+                    }
                 }
                 Drink(
                     id, name, category, alcoholic, glass,
