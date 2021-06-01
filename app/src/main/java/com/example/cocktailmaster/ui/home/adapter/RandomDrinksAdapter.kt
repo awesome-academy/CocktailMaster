@@ -57,12 +57,14 @@ class RandomDrinksAdapter(
             binding.apply {
                 imageDrink.loadImage(drink.thumb)
                 textDrinkTitle.text = drink.name
-                textDrinkDes.text = context.resources.getString(
-                    R.string.text_des_drink,
-                    drink.alcoholic,
-                    drink.category,
-                    drink.glass
-                )
+                drink.apply {
+                    textDrinkDes.text = context.resources.getString(
+                        R.string.text_des_drink,
+                        alcoholic,
+                        category,
+                        glass
+                    )
+                }
             }
         }
     }

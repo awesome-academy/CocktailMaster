@@ -21,3 +21,12 @@ fun replaceFragment(fragmentManager: FragmentManager , fragment: Fragment) {
         commit()
     }
 }
+
+fun popFragment(fragmentManager: FragmentManager , fragment: Fragment) {
+    val fragmentTransaction = fragmentManager.beginTransaction()
+    fragmentTransaction.apply {
+        remove(fragment)
+        commit()
+        fragmentManager.popBackStack()
+    }
+}
