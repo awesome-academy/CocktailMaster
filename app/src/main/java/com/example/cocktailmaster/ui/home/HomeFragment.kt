@@ -7,12 +7,14 @@ import com.example.cocktailmaster.base.BaseFragment
 import com.example.cocktailmaster.data.model.Drink
 import com.example.cocktailmaster.databinding.FragmentHomeBinding
 import com.example.cocktailmaster.ui.RepositoryUtils
+import com.example.cocktailmaster.ui.category.CategoryFragment
 import com.example.cocktailmaster.ui.detaildrink.DetailDrinkFragment
+import com.example.cocktailmaster.ui.hide
 import com.example.cocktailmaster.ui.home.adapter.AlphabetAdapter
 import com.example.cocktailmaster.ui.home.adapter.DrinksSearchAdapter
 import com.example.cocktailmaster.ui.home.adapter.RandomDrinksAdapter
 import com.example.cocktailmaster.ui.replaceFragment
-import kotlinx.android.synthetic.main.alphabets_include.*
+import com.example.cocktailmaster.ui.show
 
 class HomeFragment :
     BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate),
@@ -28,12 +30,12 @@ class HomeFragment :
     private val drinks = mutableListOf<Drink>()
 
     override fun initViews() {
-        listOf(binding.imageSearch, binding.imageFavourite).forEach {
-            it.setOnClickListener(this)
-        }
         binding.apply {
+            listOf(imageSearch, imageFavourite, includeCategories.textSeeAllCategory).forEach {
+                it.setOnClickListener(this@HomeFragment)
+            }
             recyclerDrinks.adapter = drinkAdapter
-            recyclerAlphabets.adapter = alphabetAdapter
+            includeAlphabets.recyclerAlphabets.adapter = alphabetAdapter
             recyclerDrinksSearch.adapter = drinkSearchAdapter
 
             searchDrinks.apply {
@@ -54,12 +56,12 @@ class HomeFragment :
     }
 
     override fun showRandomDrink(drink: Drink) {
-        binding.textRandomDrinks.visibility = View.VISIBLE
+        binding.textRandomDrinks.show()
         this.drinks.apply {
             add(drink)
             drinkAdapter.setDrinks(this)
         }
-        binding.cardDrinks.visibility = View.VISIBLE
+        binding.cardDrinks.show()
     }
 
     override fun showAlphabets(alphabets: List<Char>) {
@@ -74,24 +76,31 @@ class HomeFragment :
     }
 
     override fun showLoading() {
-        binding.progressDrinkLoading.visibility = View.VISIBLE
+        binding.progressDrinkLoading.show()
     }
 
     override fun hideLoading() {
-        binding.progressDrinkLoading.visibility = View.GONE
+        binding.progressDrinkLoading.hide()
     }
 
     override fun onClick(v: View) {
-        if (v.id == R.id.imageSearch) {
-            binding.searchDrinks.visibility = View.VISIBLE
+        when (v.id) {
+            R.id.imageSearch -> binding.searchDrinks.show()
+
+            R.id.textSeeAllCategory -> fragmentManager?.let {
+                replaceFragment(
+                    it,
+                    CategoryFragment()
+                )
+            }
         }
     }
 
     override fun onClose(): Boolean {
         binding.apply {
-            searchDrinks.visibility = View.GONE
-            recyclerDrinksSearch.visibility = View.GONE
-            cardDrinks.visibility = View.VISIBLE
+            searchDrinks.hide()
+            recyclerDrinksSearch.hide()
+            cardDrinks.show()
         }
 
         return false
@@ -101,8 +110,8 @@ class HomeFragment :
 
     override fun onQueryTextChange(newText: String?): Boolean {
         binding.apply {
-            recyclerDrinksSearch.visibility = View.VISIBLE
-            cardDrinks.visibility = View.GONE
+            recyclerDrinksSearch.show()
+            cardDrinks.hide()
         }
         presenter?.getSearchDrinks(newText.toString())
         return false

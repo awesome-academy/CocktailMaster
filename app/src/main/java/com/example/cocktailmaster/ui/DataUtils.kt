@@ -1,6 +1,5 @@
 package com.example.cocktailmaster.ui
 
-import android.content.Context
 import com.example.cocktailmaster.R
 import com.example.cocktailmaster.data.repository.CategoryRemoteRepository
 import com.example.cocktailmaster.data.repository.DrinksRemoteRepository
@@ -29,12 +28,12 @@ object CategoryUtils {
     const val CATEGORY_PARTY_DRINK = "Punch / Party Drink"
     const val CATEGORY_BEER = "Beer"
     const val CATEGORY_SOFT_DRINK = "Soft Drink / Soda"
-    const val CATEGORY_ORDINARY = "Ordinary Drinks"
+    const val CATEGORY_ORDINARY = "Ordinary Drink"
     const val CATEGORY_COCOA = "Cocoa"
     const val CATEGORY_COCKTAIL = "Cocktail"
     const val CATEGORY_SHOT = "Shot"
 
-    fun getCategoryMap(category: String, context: Context) = when (category) {
+    fun getCategoryMap(category: String) = when (category) {
         CATEGORY_COCKTAIL -> R.drawable.img_cocktail
         CATEGORY_ORDINARY -> R.drawable.img_original_drink
         CATEGORY_COCOA -> R.drawable.img_cocoa
