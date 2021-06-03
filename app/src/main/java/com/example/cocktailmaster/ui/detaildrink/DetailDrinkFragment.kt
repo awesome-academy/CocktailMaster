@@ -1,14 +1,15 @@
 package com.example.cocktailmaster.ui.detaildrink
 
-import android.content.res.Resources
 import android.view.View
 import androidx.core.os.bundleOf
 import com.example.cocktailmaster.R
 import com.example.cocktailmaster.base.BaseFragment
 import com.example.cocktailmaster.data.model.Drink
 import com.example.cocktailmaster.databinding.FragmentDrinkDetailBinding
+import com.example.cocktailmaster.ui.hide
 import com.example.cocktailmaster.ui.popFragment
-import com.example.cocktailmaster.utils.loadImage
+import com.example.cocktailmaster.ui.show
+import com.example.cocktailmaster.utils.loadImageByUrl
 
 class DetailDrinkFragment :
     BaseFragment<FragmentDrinkDetailBinding>(FragmentDrinkDetailBinding::inflate),
@@ -23,7 +24,7 @@ class DetailDrinkFragment :
                 it.setOnClickListener(this@DetailDrinkFragment)
             }
             drink?.let {
-                imageDrink.loadImage(it.thumb)
+                imageDrink.loadImageByUrl(it.thumb)
                 textDrinkName.text = it.name
                 textDrinkInfor.text = context?.resources?.getString(
                     R.string.text_des_drink,
@@ -39,8 +40,16 @@ class DetailDrinkFragment :
 
     override fun initData() {
         val detailIngredients = mutableListOf<IngredientDetail>()
-        drink?.ingredients?.forEachIndexed { index, item ->
-            detailIngredients.add(IngredientDetail(item, drink?.measure?.get(index).toString()))
+        drink?.apply {
+            if (ingredients.size <= measure.size) {
+                ingredients.forEachIndexed { index, item ->
+                    detailIngredients.add(IngredientDetail(item, measure[index]))
+                }
+            } else {
+                measure.forEachIndexed { index, item ->
+                    detailIngredients.add(IngredientDetail(ingredients[index], item))
+                }
+            }
         }
         adapter.setDetailIngredients(detailIngredients);
     }
@@ -50,16 +59,16 @@ class DetailDrinkFragment :
             R.id.textIngredients -> {
                 setColorTabInfor(android.R.color.black, R.color.color_olso_grey, true)
                 binding.apply {
-                    recyclerIngredientDetailInclude.root.visibility = View.VISIBLE
-                    textInstructionDetail.visibility = View.GONE
+                    recyclerIngredientDetailInclude.root.show()
+                    textInstructionDetail.hide()
                 }
             }
 
             R.id.textInstruction -> {
                 setColorTabInfor(R.color.color_olso_grey, android.R.color.black, false)
                 binding.apply {
-                    recyclerIngredientDetailInclude.root.visibility = View.GONE
-                    textInstructionDetail.visibility = View.VISIBLE
+                    recyclerIngredientDetailInclude.root.hide()
+                    textInstructionDetail.show()
                 }
             }
 

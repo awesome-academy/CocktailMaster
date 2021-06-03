@@ -17,4 +17,5 @@
     <string name="text_cocktail">Cocktail</string>
     <string name="text_cocoa">Cocoa</string>
     <string name="text_alphabet">Browse drinks by first letter</string>
+    <string name="text_empty">No data found!</string>
 </resources>

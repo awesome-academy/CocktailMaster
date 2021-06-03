@@ -4,6 +4,7 @@ import com.example.cocktailmaster.R
 import com.example.cocktailmaster.data.model.Category
 import com.example.cocktailmaster.data.model.Drink
 import com.example.cocktailmaster.data.model.Ingredient
+import com.example.cocktailmaster.ui.CategoryUtils
 import com.example.cocktailmaster.utils.ModelConstant
 import org.json.JSONArray
 import org.json.JSONException
@@ -41,7 +42,11 @@ inline fun <reified T> parseToJsonArray(model: String, jsonArray: JSONArray) = j
                 ) as T
             }
 
-            ModelConstant.CATEGORY -> Category(getJSONObject(it)) as T
+            ModelConstant.CATEGORY -> {
+                Category(getJSONObject(it)).apply {
+                    categoryThumb = CategoryUtils.getCategoryMap(name)
+                } as T
+            }
 
             ModelConstant.INGREDIENT -> Ingredient(getJSONObject(it)) as T
 

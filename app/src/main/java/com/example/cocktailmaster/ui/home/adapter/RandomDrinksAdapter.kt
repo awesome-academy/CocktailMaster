@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cocktailmaster.R
 import com.example.cocktailmaster.data.model.Drink
 import com.example.cocktailmaster.databinding.ItemDrinkBinding
-import com.example.cocktailmaster.utils.loadImage
+import com.example.cocktailmaster.utils.loadImageByUrl
 
 class RandomDrinksAdapter(
     private val onClickItem: (Drink) -> Unit
@@ -55,7 +55,7 @@ class RandomDrinksAdapter(
         fun bindView(drink: Drink) {
             drinkItem = drink
             binding.apply {
-                imageDrink.loadImage(drink.thumb)
+                imageDrink.loadImageByUrl(drink.thumb)
                 textDrinkTitle.text = drink.name
                 drink.apply {
                     textDrinkDes.text = context.resources.getString(
