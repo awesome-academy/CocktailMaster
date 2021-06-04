@@ -29,7 +29,7 @@ class CategoryFragment :
     override fun initData() {
         categories.clear()
         presenter = CategoryPresenter(this, RepositoryUtils.getCategoriesRepo())
-        presenter?.excute()
+        presenter?.execute()
     }
 
     override fun showCategories(categories: List<Category>) {

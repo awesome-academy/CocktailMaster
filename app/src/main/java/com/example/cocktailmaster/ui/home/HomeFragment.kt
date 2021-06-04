@@ -61,7 +61,7 @@ class HomeFragment :
             this,
             RepositoryUtils.getDrinkRepo()
         )
-        presenter?.excute()
+        presenter?.execute()
     }
 
     override fun showRandomDrink(drink: Drink) {

@@ -40,7 +40,7 @@ class HomePresenter(
         })
     }
 
-    override fun excute() {
+    override fun execute() {
         getRandomDrinks()
         getAllAlphabets()
     }

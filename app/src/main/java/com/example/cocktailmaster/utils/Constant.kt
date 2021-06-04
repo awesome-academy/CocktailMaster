@@ -4,6 +4,7 @@ object ModelConstant {
     const val DRINK = "drink"
     const val CATEGORY = "category"
     const val INGREDIENT = "ingredient"
+    const val FIRST_LETTER = "first letter"
 }
 
 object APINameConstant {

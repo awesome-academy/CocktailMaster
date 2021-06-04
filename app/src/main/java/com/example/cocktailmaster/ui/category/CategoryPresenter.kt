@@ -24,7 +24,7 @@ class CategoryPresenter(
         })
     }
 
-    override fun excute() {
+    override fun execute() {
         getCategories()
     }
 }
