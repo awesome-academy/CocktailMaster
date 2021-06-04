@@ -16,6 +16,27 @@ class DrinksRemoteRepository private constructor(
         remote.getRandomDrinks(callback)
     }
 
+    override fun filterDrinkByCategory(
+        category: String,
+        callback: RequestAPICallback<List<Drink>>
+    ) {
+        remote.filterDrinkByCategory(category, callback)
+    }
+
+    override fun filterDrinkByIngredient(
+        ingredient: String,
+        callback: RequestAPICallback<List<Drink>>
+    ) {
+        remote.filterDrinkByIngredient(ingredient, callback)
+    }
+
+    override fun filterDrinkByFirstLetter(
+        letter: String,
+        callback: RequestAPICallback<List<Drink>>
+    ) {
+        remote.filterDrinkByFirstLetter(letter, callback)
+    }
+
     companion object {
         private var instance: DrinksRemoteRepository? = null
 

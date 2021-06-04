@@ -29,7 +29,7 @@ class IngredientFragment :
     override fun initData() {
         ingredients.clear()
         presenter = IngredientPresenter(this, RepositoryUtils.getIngredientsRepo())
-        presenter?.excute()
+        presenter?.execute()
     }
 
     override fun showIngredients(ingredients: List<Ingredient>) {

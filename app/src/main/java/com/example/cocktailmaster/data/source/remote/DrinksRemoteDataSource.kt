@@ -22,6 +22,33 @@ class DrinksRemoteDataSource private constructor() : DrinksDataSource {
         }.execute()
     }
 
+    override fun filterDrinkByCategory(
+        category: String,
+        callback: RequestAPICallback<List<Drink>>
+    ) {
+        RemoteAsysntask(callback) {
+            getListDrinkByCategory(category)
+        }.execute()
+    }
+
+    override fun filterDrinkByIngredient(
+        ingredient: String,
+        callback: RequestAPICallback<List<Drink>>
+    ) {
+        RemoteAsysntask(callback) {
+            getListDrinkByIngredient(ingredient)
+        }.execute()
+    }
+
+    override fun filterDrinkByFirstLetter(
+        letter: String,
+        callback: RequestAPICallback<List<Drink>>
+    ) {
+        RemoteAsysntask(callback) {
+            getListDrinkByFirstLetter(letter)
+        }.execute()
+    }
+
     private fun getRandomDrinks(): List<Drink> {
         val jsonObject = JSONObject(httpRequestAPI(APIQuery.querryRandomDrink()))
         val jsonArray = jsonObject.optJSONArray(APINameConstant.DRINKS)
@@ -30,6 +57,24 @@ class DrinksRemoteDataSource private constructor() : DrinksDataSource {
 
     private fun getListDrinkSearch(queryText: String): List<Drink> {
         val jsonObject = JSONObject(httpRequestAPI(APIQuery.searchDrink(queryText)))
+        val jsonArray = jsonObject.optJSONArray(APINameConstant.DRINKS)
+        return parseToJsonArray(ModelConstant.DRINK, jsonArray)
+    }
+
+    private fun getListDrinkByCategory(category: String): List<Drink> {
+        val jsonObject = JSONObject(httpRequestAPI(APIQuery.filterByCategory(category)))
+        val jsonArray = jsonObject.optJSONArray(APINameConstant.DRINKS)
+        return parseToJsonArray(ModelConstant.DRINK, jsonArray)
+    }
+
+    private fun getListDrinkByIngredient(ingredient: String): List<Drink> {
+        val jsonObject = JSONObject(httpRequestAPI(APIQuery.filterByIngredient(ingredient)))
+        val jsonArray = jsonObject.optJSONArray(APINameConstant.DRINKS)
+        return parseToJsonArray(ModelConstant.DRINK, jsonArray)
+    }
+
+    private fun getListDrinkByFirstLetter(firstLetter: String): List<Drink> {
+        val jsonObject = JSONObject(httpRequestAPI(APIQuery.filterByFirstLetter(firstLetter)))
         val jsonArray = jsonObject.optJSONArray(APINameConstant.DRINKS)
         return parseToJsonArray(ModelConstant.DRINK, jsonArray)
     }

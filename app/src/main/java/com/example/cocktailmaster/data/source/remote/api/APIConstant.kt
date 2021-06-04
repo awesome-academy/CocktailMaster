@@ -1,5 +1,7 @@
 package com.example.cocktailmaster.data.source.remote.api
 
+import android.net.Uri
+
 object APIConstant {
 
     const val SCHEME_API = "https"
@@ -11,4 +13,14 @@ object APIConstant {
     const val API_FILTER = "filter.php"
     const val API_LIST = "list.php"
     const val API_LOOKUP = "lookup.php"
+}
+
+object APIQueryExtension {
+
+    fun Uri.Builder.appendAuthorityAndContent(apiType: String): Uri.Builder {
+        return scheme(APIConstant.SCHEME_API)
+            .authority(APIConstant.AUTHORITY)
+            .appendPath(APIConstant.API_CONTENT)
+            .appendPath(apiType)
+    }
 }

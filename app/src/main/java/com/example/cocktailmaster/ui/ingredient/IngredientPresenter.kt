@@ -23,7 +23,7 @@ class IngredientPresenter(
         })
     }
 
-    override fun excute() {
+    override fun execute() {
         getIngredients()
     }
 }
