@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/linearToolBar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/black"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/guideLineIngredient"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineIngredient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <ImageView
+        android:id="@+id/imageBack"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginStart="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="?selectableItemBackgroundBorderless"
+        android:padding="@dimen/dp_8"
+        android:src="@drawable/ic_white_left_arrow"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textIngredientTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_ingredients"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/sp_20"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/imageBack"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/imageBack" />
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchIngredient"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_30"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginEnd="@dimen/dp_40"
+        android:background="@drawable/bg_radius"
+        app:iconifiedByDefault="false"
+        app:layout_constraintLeft_toRightOf="@id/imageBack"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textIngredientTitle"
+        app:queryHint="@string/text_search_ingredients" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerIngredients"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginEnd="@dimen/dp_20"
+        android:layout_marginBottom="@dimen/dp_20"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideLineIngredient"
+        app:spanCount="3"
+        tools:listitem="@layout/item_ingredient" />
+
+    <ProgressBar
+        android:id="@+id/progressIngredient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/progress_custom"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageEmpty"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/dp_100"
+        android:src="@drawable/ic_document"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="H,1:1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textEmpty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:text="@string/text_empty"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/sp_22"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="@id/imageEmpty"
+        app:layout_constraintRight_toRightOf="@id/imageEmpty"
+        app:layout_constraintTop_toBottomOf="@id/imageEmpty" />
+</androidx.constraintlayout.widget.ConstraintLayout>

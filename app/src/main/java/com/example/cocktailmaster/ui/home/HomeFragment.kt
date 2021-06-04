@@ -13,8 +13,12 @@ import com.example.cocktailmaster.ui.hide
 import com.example.cocktailmaster.ui.home.adapter.AlphabetAdapter
 import com.example.cocktailmaster.ui.home.adapter.DrinksSearchAdapter
 import com.example.cocktailmaster.ui.home.adapter.RandomDrinksAdapter
+import com.example.cocktailmaster.ui.ingredient.IngredientFragment
 import com.example.cocktailmaster.ui.replaceFragment
 import com.example.cocktailmaster.ui.show
+import kotlinx.android.synthetic.main.alphabets_include.*
+import kotlinx.android.synthetic.main.categories_include.*
+import kotlinx.android.synthetic.main.ingredient_include.*
 
 class HomeFragment :
     BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate),
@@ -31,11 +35,16 @@ class HomeFragment :
 
     override fun initViews() {
         binding.apply {
-            listOf(imageSearch, imageFavourite, includeCategories.textSeeAllCategory).forEach {
+            listOf(
+                imageSearch,
+                imageFavourite,
+                textSeeAllCategory,
+                textSeeAllIngredient
+            ).forEach {
                 it.setOnClickListener(this@HomeFragment)
             }
             recyclerDrinks.adapter = drinkAdapter
-            includeAlphabets.recyclerAlphabets.adapter = alphabetAdapter
+            recyclerAlphabets.adapter = alphabetAdapter
             recyclerDrinksSearch.adapter = drinkSearchAdapter
 
             searchDrinks.apply {
@@ -87,11 +96,12 @@ class HomeFragment :
         when (v.id) {
             R.id.imageSearch -> binding.searchDrinks.show()
 
-            R.id.textSeeAllCategory -> fragmentManager?.let {
-                replaceFragment(
-                    it,
-                    CategoryFragment()
-                )
+            R.id.textSeeAllCategory -> {
+                fragmentManager?.let { replaceFragment(it, CategoryFragment()) }
+            }
+
+            R.id.textSeeAllIngredient -> {
+                fragmentManager?.let { replaceFragment(it, IngredientFragment()) }
             }
         }
     }
