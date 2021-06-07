@@ -5,10 +5,9 @@ import com.example.cocktailmaster.R
 import com.example.cocktailmaster.base.BaseFragment
 import com.example.cocktailmaster.data.model.Category
 import com.example.cocktailmaster.databinding.FragmentCategoryLayoutBinding
-import com.example.cocktailmaster.ui.RepositoryUtils
-import com.example.cocktailmaster.ui.hide
-import com.example.cocktailmaster.ui.popFragment
-import com.example.cocktailmaster.ui.show
+import com.example.cocktailmaster.ui.*
+import com.example.cocktailmaster.ui.listdrink.ListDrinkFragment
+import com.example.cocktailmaster.utils.ModelConstant
 
 class CategoryFragment :
     BaseFragment<FragmentCategoryLayoutBinding>(FragmentCategoryLayoutBinding::inflate),
@@ -17,7 +16,7 @@ class CategoryFragment :
 
     private var presenter: CategoryPresenter? = null
     private val categories = mutableListOf<Category>()
-    private val categoryAdapter = CategoryAdapter()
+    private val categoryAdapter = CategoryAdapter(::onClickCategoryItem)
 
     override fun initViews() {
         binding.apply {
@@ -35,6 +34,10 @@ class CategoryFragment :
     override fun showCategories(categories: List<Category>) {
         this.categories.addAll(categories)
         categoryAdapter.setCategories(this.categories)
+        binding.apply {
+            imageEmpty.hide()
+            textEmpty.hide()
+        }
     }
 
     override fun showError() {
@@ -55,6 +58,15 @@ class CategoryFragment :
     override fun onClick(v: View) {
         if (v.id == R.id.imageBack) {
             fragmentManager?.let { popFragment(it, this) }
+        }
+    }
+
+    private fun onClickCategoryItem(category: Category) {
+        fragmentManager?.let {
+            replaceFragment(
+                it,
+                ListDrinkFragment.getInstance(ModelConstant.CATEGORY, category.name)
+            )
         }
     }
 }

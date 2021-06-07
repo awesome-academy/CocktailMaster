@@ -7,19 +7,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cocktailmaster.data.model.Category
 import com.example.cocktailmaster.databinding.ItemCategoryBinding
 import com.example.cocktailmaster.utils.loadImageByResource
-import com.example.cocktailmaster.utils.loadImageByUrl
 
-class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+class CategoryAdapter(
+    private val clickItem: (Category) -> Unit
+) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     private val categories = mutableListOf<Category>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
             ItemCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding.root, binding)
+        return ViewHolder(binding.root, binding, clickItem)
     }
 
-    override fun onBindViewHolder(holder: CategoryAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindView(categories[position])
     }
 
@@ -33,10 +34,22 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    class ViewHolder(itemView: View, private val binding: ItemCategoryBinding) :
-        RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(
+        itemView: View,
+        private val binding: ItemCategoryBinding,
+        private val clickItem: (Category) -> Unit
+    ) : RecyclerView.ViewHolder(itemView) {
+
+        private var category: Category? = null
+
+        init {
+            itemView.setOnClickListener {
+                category?.let { clickItem(it) }
+            }
+        }
 
         fun bindView(category: Category) {
+            this.category = category
             binding.apply {
                 imageCategoryItem.loadImageByResource(category.categoryThumb)
                 textCategoryItem.text = category.name

@@ -8,12 +8,13 @@ class ListDrinkPresenter(
     private val view: ListDrinkContract.View,
     private val drinkRepo: DrinksRemoteRepository,
 ) : ListDrinkContract.Presenter {
+
     override fun getListDrinkByCategory(category: String) {
         view.showLoading()
         drinkRepo.filterDrinkByCategory(category, object : RequestAPICallback<List<Drink>> {
             override fun onSuccess(data: List<Drink>) {
                 view.hideLoading()
-                view.showDrinksByCategory(data)
+                view.showDrinks(data)
             }
 
             override fun onFailed() {
@@ -28,7 +29,7 @@ class ListDrinkPresenter(
         drinkRepo.filterDrinkByIngredient(ingredient, object : RequestAPICallback<List<Drink>> {
             override fun onSuccess(data: List<Drink>) {
                 view.hideLoading()
-                view.showDrinksByIngredient(data)
+                view.showDrinks(data)
             }
 
             override fun onFailed() {
@@ -43,7 +44,7 @@ class ListDrinkPresenter(
         drinkRepo.filterDrinkByFirstLetter(letter, object : RequestAPICallback<List<Drink>> {
             override fun onSuccess(data: List<Drink>) {
                 view.hideLoading()
-                view.showDrinksByFirstLetter(data)
+                view.showDrinks(data)
             }
 
             override fun onFailed() {

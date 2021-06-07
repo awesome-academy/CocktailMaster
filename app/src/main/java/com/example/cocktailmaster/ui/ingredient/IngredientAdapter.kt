@@ -7,21 +7,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cocktailmaster.data.model.Ingredient
 import com.example.cocktailmaster.databinding.ItemIngredientBinding
 
-class IngredientAdapter : RecyclerView.Adapter<IngredientAdapter.ViewHolder>() {
+class IngredientAdapter(
+    private val clickItem: (Ingredient) -> Unit
+) : RecyclerView.Adapter<IngredientAdapter.ViewHolder>() {
 
     private val ingredients = mutableListOf<Ingredient>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): IngredientAdapter.ViewHolder {
+    ): ViewHolder {
 
         val binding =
             ItemIngredientBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding.root, binding)
+        return ViewHolder(binding.root, binding, clickItem)
     }
 
-    override fun onBindViewHolder(holder: IngredientAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindView(ingredients[position])
     }
 
@@ -37,11 +39,22 @@ class IngredientAdapter : RecyclerView.Adapter<IngredientAdapter.ViewHolder>() {
 
     class ViewHolder(
         itemView: View,
-        private val binding: ItemIngredientBinding) :
+        private val binding: ItemIngredientBinding,
+        private val clickItem: (Ingredient) -> Unit
+    ) :
         RecyclerView.ViewHolder(itemView) {
 
-            fun bindView(ingredient: Ingredient) {
-                binding.textIngredient.text  = ingredient.name
+        private var ingredient: Ingredient? = null
+
+        init {
+            itemView.setOnClickListener {
+                ingredient?.let { clickItem(it) }
             }
+        }
+
+        fun bindView(ingredient: Ingredient) {
+            this.ingredient = ingredient
+            binding.textIngredient.text = ingredient.name
+        }
     }
 }
