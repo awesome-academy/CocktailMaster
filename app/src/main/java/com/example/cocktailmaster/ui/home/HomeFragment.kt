@@ -190,7 +190,7 @@ class HomeFragment :
     private fun onClickDrinkItem(drink: Drink) {
         fragmentManager?.let {
             replaceFragment(
-                it, DetailDrinkFragment.getInstance(drink)
+                it, DetailDrinkFragment.getInstance(drink , 0)
             )
         }
     }

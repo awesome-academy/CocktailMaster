@@ -8,14 +8,16 @@ import com.example.cocktailmaster.data.model.Drink
 import com.example.cocktailmaster.databinding.ItemDrinkDetailBinding
 import com.example.cocktailmaster.utils.loadImageByUrl
 
-class ListDrinkAdapter : RecyclerView.Adapter<ListDrinkAdapter.ViewHolder>() {
+class ListDrinkAdapter(
+    private val clickItem: (Int) -> Unit
+) : RecyclerView.Adapter<ListDrinkAdapter.ViewHolder>() {
 
     private val drinks = mutableListOf<Drink>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
             ItemDrinkDetailBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding.root, binding)
+        return ViewHolder(binding.root, binding , clickItem)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -34,10 +36,20 @@ class ListDrinkAdapter : RecyclerView.Adapter<ListDrinkAdapter.ViewHolder>() {
 
     class ViewHolder(
         itemView: View,
-        private val binding: ItemDrinkDetailBinding
+        private val binding: ItemDrinkDetailBinding,
+        private val clickItem: (Int) -> Unit
     ) : RecyclerView.ViewHolder(itemView) {
 
+        private var id: Int = 0
+
+        init {
+            itemView.setOnClickListener{
+                clickItem(id)
+            }
+        }
+
         fun bindView(drink: Drink) {
+            id = drink.id
             binding.imageDrink.loadImageByUrl(drink.thumb)
             binding.textDrink.text = drink.name
         }

@@ -37,6 +37,10 @@ class DrinksRemoteRepository private constructor(
         remote.filterDrinkByFirstLetter(letter, callback)
     }
 
+    override fun getDrinkById(id: Int, callback: RequestAPICallback<Drink>) {
+        remote.getDrinkById(id, callback)
+    }
+
     companion object {
         private var instance: DrinksRemoteRepository? = null
 
