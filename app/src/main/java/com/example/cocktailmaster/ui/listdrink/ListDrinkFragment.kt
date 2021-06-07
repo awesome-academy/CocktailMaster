@@ -6,10 +6,8 @@ import com.example.cocktailmaster.R
 import com.example.cocktailmaster.base.BaseFragment
 import com.example.cocktailmaster.data.model.Drink
 import com.example.cocktailmaster.databinding.FragmentListDrinkBinding
-import com.example.cocktailmaster.ui.RepositoryUtils
-import com.example.cocktailmaster.ui.hide
-import com.example.cocktailmaster.ui.popFragment
-import com.example.cocktailmaster.ui.show
+import com.example.cocktailmaster.ui.*
+import com.example.cocktailmaster.ui.detaildrink.DetailDrinkFragment
 import com.example.cocktailmaster.utils.ModelConstant
 
 class ListDrinkFragment :
@@ -19,7 +17,7 @@ class ListDrinkFragment :
 
     private var presenter: ListDrinkPresenter? = null
     private val drinks = mutableListOf<Drink>()
-    private val adapter = ListDrinkAdapter()
+    private val adapter = ListDrinkAdapter(::onClickDrinkItem)
     private val filterType by lazy { arguments?.getString(BUNDLE_DRINKS_FILTER) }
     private val filterName by lazy { arguments?.getString(BUNDLE_FILTER_NAME) }
 
@@ -86,6 +84,14 @@ class ListDrinkFragment :
     override fun onClick(v: View) {
         if (v.id == R.id.imageBack) {
             fragmentManager?.let { popFragment(it, this) }
+        }
+    }
+
+    private fun onClickDrinkItem(id: Int) {
+        fragmentManager?.let {
+            replaceFragment(
+                it, DetailDrinkFragment.getInstance(null , id)
+            )
         }
     }
 

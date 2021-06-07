@@ -49,6 +49,12 @@ class DrinksRemoteDataSource private constructor() : DrinksDataSource {
         }.execute()
     }
 
+    override fun getDrinkById(id: Int, callback: RequestAPICallback<Drink>) {
+        RemoteRandomDrinkAsynctask(callback) {
+            getDinkById(id)[0]
+        }.execute()
+    }
+
     private fun getRandomDrinks(): List<Drink> {
         val jsonObject = JSONObject(httpRequestAPI(APIQuery.querryRandomDrink()))
         val jsonArray = jsonObject.optJSONArray(APINameConstant.DRINKS)
@@ -75,6 +81,12 @@ class DrinksRemoteDataSource private constructor() : DrinksDataSource {
 
     private fun getListDrinkByFirstLetter(firstLetter: String): List<Drink> {
         val jsonObject = JSONObject(httpRequestAPI(APIQuery.filterByFirstLetter(firstLetter)))
+        val jsonArray = jsonObject.optJSONArray(APINameConstant.DRINKS)
+        return parseToJsonArray(ModelConstant.DRINK, jsonArray)
+    }
+
+    private fun getDinkById(id: Int): List<Drink> {
+        val jsonObject = JSONObject(httpRequestAPI(APIQuery.lookUpDrink(id)))
         val jsonArray = jsonObject.optJSONArray(APINameConstant.DRINKS)
         return parseToJsonArray(ModelConstant.DRINK, jsonArray)
     }

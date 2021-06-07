@@ -29,6 +29,43 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ProgressBar
+        android:id="@+id/progressDrinkLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/progress_custom"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/guidelineDetail2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageEmpty"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/dp_120"
+        android:src="@drawable/ic_document"
+        android:visibility="gone"
+        app:layout_constraintDimensionRatio="H,1:1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textEmpty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:text="@string/text_empty"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/sp_22"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="@id/imageEmpty"
+        app:layout_constraintRight_toRightOf="@id/imageEmpty"
+        app:layout_constraintTop_toBottomOf="@id/imageEmpty" />
+
     <ImageView
         android:id="@+id/imageBack"
         android:layout_width="@dimen/dp_40"
