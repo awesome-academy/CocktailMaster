@@ -3,12 +3,13 @@ package com.example.cocktailmaster.ui.ingredient
 import android.view.View
 import com.example.cocktailmaster.R
 import com.example.cocktailmaster.base.BaseFragment
+import com.example.cocktailmaster.data.model.Drink
 import com.example.cocktailmaster.data.model.Ingredient
 import com.example.cocktailmaster.databinding.FragmentIngredientsBinding
-import com.example.cocktailmaster.ui.RepositoryUtils
-import com.example.cocktailmaster.ui.hide
-import com.example.cocktailmaster.ui.popFragment
-import com.example.cocktailmaster.ui.show
+import com.example.cocktailmaster.ui.*
+import com.example.cocktailmaster.ui.detaildrink.DetailDrinkFragment
+import com.example.cocktailmaster.ui.listdrink.ListDrinkFragment
+import com.example.cocktailmaster.utils.ModelConstant
 
 class IngredientFragment :
     BaseFragment<FragmentIngredientsBinding>(FragmentIngredientsBinding::inflate),
@@ -17,7 +18,7 @@ class IngredientFragment :
 
     private var presenter: IngredientPresenter? = null
     private val ingredients = mutableListOf<Ingredient>()
-    private val adapter = IngredientAdapter()
+    private val adapter = IngredientAdapter(::onClickIngredientItem)
 
     override fun initViews() {
         binding.apply {
@@ -55,6 +56,14 @@ class IngredientFragment :
     override fun onClick(v: View) {
         if (v.id == R.id.imageBack) {
             fragmentManager?.let { popFragment(it, this) }
+        }
+    }
+
+    private fun onClickIngredientItem(ingredient: Ingredient) {
+        fragmentManager?.let {
+            replaceFragment(
+                it, ListDrinkFragment.getInstance(ModelConstant.INGREDIENT , ingredient.name)
+            )
         }
     }
 }

@@ -17,4 +17,10 @@
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:background">@drawable/splashscreen</item>
     </style>
+
+    <style name="roundedCornersImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/dp_15</item>
+        <item name="background">@android:color/transparent</item>
+    </style>
 </resources>

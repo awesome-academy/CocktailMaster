@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="contentDescription"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    tools:ignore="contentDescription">
 
     <TextView
         android:id="@+id/textIngredients"
@@ -33,108 +33,112 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/textIngredients" />
 
-        <LinearLayout
-            android:layout_width="0dp"
+    <LinearLayout
+        android:id="@+id/linearVodka"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="@id/textIngredients"
+        app:layout_constraintRight_toLeftOf="@id/linearGin"
+        app:layout_constraintTop_toBottomOf="@id/textIngredients">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_100"
+            android:scaleType="fitXY"
+            android:src="@drawable/img_vodka" />
+
+        <TextView
+            android:id="@+id/textVodka"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/linear_vodka"
-            app:layout_constraintTop_toBottomOf="@id/textIngredients"
-            android:layout_marginTop="@dimen/dp_10"
-            app:layout_constraintRight_toLeftOf="@id/linear_gin"
-            app:layout_constraintLeft_toLeftOf="@id/textIngredients"
-            android:orientation="vertical">
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_4"
+            android:text="@string/text_vodka"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/sp_16" />
+    </LinearLayout>
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_100"
-                android:scaleType="fitXY"
-                android:src="@drawable/img_vodka" />
+    <LinearLayout
+        android:id="@+id/linearGin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/linearVodka"
+        app:layout_constraintLeft_toRightOf="@id/linearVodka"
+        app:layout_constraintRight_toLeftOf="@id/linearRum"
+        app:layout_constraintTop_toTopOf="@id/linearVodka">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/dp_4"
-                android:text="@string/text_vodka"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/sp_16" />
-        </LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_100"
+            android:scaleType="fitXY"
+            android:src="@drawable/img_gin" />
 
-        <LinearLayout
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/textGin"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/linear_gin"
-            app:layout_constraintTop_toTopOf="@id/linear_vodka"
-            app:layout_constraintBottom_toBottomOf="@id/linear_vodka"
-            app:layout_constraintLeft_toRightOf="@id/linear_vodka"
-            app:layout_constraintRight_toLeftOf="@id/linear_rum"
-            android:orientation="vertical">
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_4"
+            android:text="@string/text_gin"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/sp_16" />
+    </LinearLayout>
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_100"
-                android:scaleType="fitXY"
-                android:src="@drawable/img_gin" />
+    <LinearLayout
+        android:id="@+id/linearRum"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/linearGin"
+        app:layout_constraintLeft_toRightOf="@id/linearGin"
+        app:layout_constraintRight_toLeftOf="@id/linearTequila"
+        app:layout_constraintTop_toTopOf="@id/linearGin">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/dp_4"
-                android:text="@string/text_gin"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/sp_16" />
-        </LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_100"
+            android:scaleType="fitXY"
+            android:src="@drawable/img_rum" />
 
-        <LinearLayout
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/textRum"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/linear_rum"
-            app:layout_constraintRight_toLeftOf="@id/linear_tequila"
-            app:layout_constraintTop_toTopOf="@id/linear_gin"
-            app:layout_constraintBottom_toBottomOf="@id/linear_gin"
-            app:layout_constraintLeft_toRightOf="@id/linear_gin"
-            android:orientation="vertical">
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_4"
+            android:text="@string/text_rum"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/sp_16" />
+    </LinearLayout>
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_100"
-                android:scaleType="fitXY"
-                android:src="@drawable/img_rum" />
+    <LinearLayout
+        android:id="@+id/linearTequila"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_20"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/linearRum"
+        app:layout_constraintLeft_toRightOf="@id/linearRum"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/linearRum">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/dp_4"
-                android:text="@string/text_rum"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/sp_16" />
-        </LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_100"
+            android:scaleType="fitXY"
+            android:src="@drawable/img_tequila" />
 
-        <LinearLayout
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/textTequila"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/linear_tequila"
-            app:layout_constraintTop_toTopOf="@id/linear_rum"
-            app:layout_constraintBottom_toBottomOf="@id/linear_rum"
-            app:layout_constraintLeft_toRightOf="@id/linear_rum"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginEnd="@dimen/dp_20"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_100"
-                android:scaleType="fitXY"
-                android:src="@drawable/img_tequila" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/dp_4"
-                android:text="@string/text_tequila"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/sp_16" />
-        </LinearLayout>
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_4"
+            android:text="@string/text_tequila"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/sp_16" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

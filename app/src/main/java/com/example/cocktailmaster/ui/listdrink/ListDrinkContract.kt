@@ -13,8 +13,6 @@ interface ListDrinkContract {
     }
 
     interface View : BaseView {
-        fun showDrinksByCategory(drinks: List<Drink>)
-        fun showDrinksByIngredient(drinks: List<Drink>)
-        fun showDrinksByFirstLetter(drinks: List<Drink>)
+        fun showDrinks(drinks: List<Drink>)
     }
 }
