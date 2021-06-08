@@ -9,7 +9,7 @@ import com.example.cocktailmaster.utils.ModelConstant
 import org.json.JSONObject
 
 @Suppress("DEPRECATION")
-class DrinksRemoteDataSource private constructor() : DrinksDataSource {
+class DrinksRemoteDataSource private constructor() : DrinksDataSource.Remote {
     override fun searchDrinks(query: String, callback: RequestAPICallback<List<Drink>>) {
         RemoteAsysntask(callback) {
             getListDrinkSearch(query)
@@ -50,7 +50,7 @@ class DrinksRemoteDataSource private constructor() : DrinksDataSource {
     }
 
     override fun getDrinkById(id: Int, callback: RequestAPICallback<Drink>) {
-        RemoteRandomDrinkAsynctask(callback) {
+        RemoteAsysntask(callback) {
             getDinkById(id)[0]
         }.execute()
     }

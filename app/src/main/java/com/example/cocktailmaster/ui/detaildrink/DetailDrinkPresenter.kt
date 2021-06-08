@@ -1,12 +1,12 @@
 package com.example.cocktailmaster.ui.detaildrink
 
 import com.example.cocktailmaster.data.model.Drink
-import com.example.cocktailmaster.data.repository.DrinksRemoteRepository
+import com.example.cocktailmaster.data.repository.DrinksRepository
 import com.example.cocktailmaster.data.source.remote.utils.RequestAPICallback
 
 class DetailDrinkPresenter(
     private val view: DetailDrinkContract.View,
-    private val repository: DrinksRemoteRepository
+    private val repository: DrinksRepository
 ) : DetailDrinkContract.Presenter {
 
     override fun loadDetailDrink(id: Int) {

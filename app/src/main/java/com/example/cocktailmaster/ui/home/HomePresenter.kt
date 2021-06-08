@@ -1,13 +1,13 @@
 package com.example.cocktailmaster.ui.home
 
 import com.example.cocktailmaster.data.model.Drink
-import com.example.cocktailmaster.data.repository.DrinksRemoteRepository
+import com.example.cocktailmaster.data.repository.DrinksRepository
 import com.example.cocktailmaster.data.source.remote.utils.RequestAPICallback
 import com.example.cocktailmaster.utils.AlphabetsConstant
 
 class HomePresenter(
     private val view: HomeContract.View,
-    private val drinksRepo: DrinksRemoteRepository
+    private val drinksRepo: DrinksRepository
 ) : HomeContract.Presenter {
 
     override fun getRandomDrinks() {
