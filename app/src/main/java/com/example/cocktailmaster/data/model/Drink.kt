@@ -18,7 +18,7 @@ data class Drink(
     val measure: List<String>
 ) : Parcelable {
 
-    val isFavourite = false
+    var isFavourite = false
 
     constructor(cursor: Cursor) : this(
         cursor.getString(cursor.getColumnIndex(FAVOURITE_ID)).toInt(),

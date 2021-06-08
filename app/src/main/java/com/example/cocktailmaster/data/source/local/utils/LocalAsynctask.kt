@@ -3,7 +3,6 @@
 package com.example.cocktailmaster.data.source.local.utils
 
 import android.os.AsyncTask
-import java.lang.Exception
 
 class LocalAsynctask<V, T>(
     private val callback: OnLocalDataCallback<T>,

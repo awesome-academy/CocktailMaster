@@ -43,6 +43,10 @@ class DrinksRepository private constructor(
         remote.getDrinkById(id, callback)
     }
 
+    override fun getDrinkByName(name: String, callback: RequestAPICallback<List<Drink>>) {
+        remote.getDrinkByName(name, callback)
+    }
+
     override fun insertDrink(drink: Drink, callback: OnLocalDataCallback<Unit>) {
         local.insertDrink(drink, callback)
     }
@@ -64,7 +68,7 @@ class DrinksRepository private constructor(
 
         fun getInstace(
             remote: DrinksDataSource.Remote,
-            local: DrinksDataSource.Local) =
-            instance ?: DrinksRepository(remote, local).also { instance = it }
+            local: DrinksDataSource.Local
+        ) = instance ?: DrinksRepository(remote, local).also { instance = it }
     }
 }

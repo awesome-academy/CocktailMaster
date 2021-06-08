@@ -55,9 +55,24 @@ class ListDrinkPresenter(
         })
     }
 
+    override fun getDrinkByName(name: String) {
+        view.showLoading()
+        drinkRepo.getDrinkByName(name, object : RequestAPICallback<List<Drink>> {
+            override fun onSuccess(data: List<Drink>) {
+                view.hideLoading()
+                view.showDrinks(data)
+            }
+
+            override fun onFailed() {
+                view.hideLoading()
+                view.showError()
+            }
+        })
+    }
+
     override fun insertFavourite(drink: Drink) {
         view.showLoading()
-        drinkRepo.insertDrink(drink , object : OnLocalDataCallback<Unit>{
+        drinkRepo.insertDrink(drink, object : OnLocalDataCallback<Unit> {
             override fun onSuccess(data: Unit) {
                 view.hideLoading()
             }
@@ -71,7 +86,7 @@ class ListDrinkPresenter(
 
     override fun getAllFavouriteDrinks() {
         view.showLoading()
-        drinkRepo.getAllFavouriteDrinks(object: OnLocalDataCallback<List<Drink>>{
+        drinkRepo.getAllFavouriteDrinks(object : OnLocalDataCallback<List<Drink>> {
             override fun onSuccess(data: List<Drink>) {
                 view.hideLoading()
                 view.showAllFavouriteDrinks(data)
@@ -84,10 +99,10 @@ class ListDrinkPresenter(
         })
     }
 
-    override fun isFavourite(id: Int) {
-        drinkRepo.isFavourite(id , object : OnLocalDataCallback<Boolean>{
+    override fun isFavourite(id: Int, position: Int) {
+        drinkRepo.isFavourite(id, object : OnLocalDataCallback<Boolean> {
             override fun onSuccess(data: Boolean) {
-                view.isFavourite(data)
+                view.isFavourite(data, position)
             }
 
             override fun onFailed() {
@@ -98,7 +113,7 @@ class ListDrinkPresenter(
 
     override fun removeFavourite(id: Int) {
         view.showLoading()
-        drinkRepo.removeFavouriteDrink(id , object : OnLocalDataCallback<Unit>{
+        drinkRepo.removeFavouriteDrink(id, object : OnLocalDataCallback<Unit> {
             override fun onSuccess(data: Unit) {
                 view.hideLoading()
             }

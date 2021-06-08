@@ -32,8 +32,9 @@ class HomeFragment :
     private var presenter: HomePresenter? = null
     private val drinkAdapter = RandomDrinksAdapter(::onClickDrinkItem)
     private val alphabetAdapter = AlphabetAdapter(::onClickAlphabetItem)
-    private val drinkSearchAdapter = DrinksSearchAdapter()
+    private val drinkSearchAdapter = DrinksSearchAdapter(::loadDrinkSearch)
     private val drinks = mutableListOf<Drink>()
+    private val searchDrinks = mutableListOf<Drink>()
 
     override fun initViews() {
         binding.apply {
@@ -87,7 +88,11 @@ class HomeFragment :
     }
 
     override fun showSearchDrinks(searchedDrinks: List<Drink>) {
-        drinkSearchAdapter.setDrinks(searchedDrinks)
+        this.searchDrinks.apply {
+            clear()
+            addAll(searchedDrinks)
+            drinkSearchAdapter.setDrinks(this)
+        }
     }
 
     override fun showError() {
@@ -174,7 +179,10 @@ class HomeFragment :
         return false
     }
 
-    override fun onQueryTextSubmit(query: String?) = false
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        query?.let { loadDrinkSearch(it) }
+        return false
+    }
 
     override fun onQueryTextChange(newText: String?): Boolean {
         binding.apply {
@@ -187,10 +195,23 @@ class HomeFragment :
         return false
     }
 
+    override fun onPause() {
+        super.onPause()
+        binding.apply {
+            searchDrinks.apply {
+                setQuery("", false)
+                clearFocus()
+            }
+            recyclerDrinksSearch.hide()
+        }
+        searchDrinks.clear()
+        drinkSearchAdapter.setDrinks(searchDrinks)
+    }
+
     private fun onClickDrinkItem(drink: Drink) {
         fragmentManager?.let {
             replaceFragment(
-                it, DetailDrinkFragment.getInstance(drink , 0)
+                it, DetailDrinkFragment.getInstance(drink, 0)
             )
         }
     }
@@ -205,5 +226,9 @@ class HomeFragment :
                 it, ListDrinkFragment.getInstance(filterType, filterName)
             )
         }
+    }
+
+    private fun loadDrinkSearch(query: String) {
+        loadListDrinkFragment(ModelConstant.DRINK_NAME, query)
     }
 }

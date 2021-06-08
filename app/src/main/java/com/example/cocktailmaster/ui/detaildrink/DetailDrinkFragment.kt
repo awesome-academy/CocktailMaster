@@ -12,6 +12,7 @@ import com.example.cocktailmaster.ui.popFragment
 import com.example.cocktailmaster.ui.show
 import com.example.cocktailmaster.utils.loadImageByUrl
 
+@Suppress("DEPRECATION")
 class DetailDrinkFragment :
     BaseFragment<FragmentDrinkDetailBinding>(FragmentDrinkDetailBinding::inflate),
     View.OnClickListener,
@@ -24,7 +25,7 @@ class DetailDrinkFragment :
 
     override fun initViews() {
         binding.apply {
-            listOf(textIngredients, textInstruction, imageBack).forEach {
+            listOf(textIngredients, textInstruction, imageBack, imageFavourite).forEach {
                 it.setOnClickListener(this@DetailDrinkFragment)
             }
             recyclerIngredientDetailInclude.recyclerIngredient.adapter = adapter
@@ -32,8 +33,8 @@ class DetailDrinkFragment :
     }
 
     override fun initData() {
+        presenter = DetailDrinkPresenter(this, RepositoryUtils.getDrinkRepo(context))
         if (id != 0) {
-            presenter = DetailDrinkPresenter(this, RepositoryUtils.getDrinkRepo(context))
             id?.let { presenter?.loadDetailDrink(it) }
         }
         drink = arguments?.getParcelable(BUNDLE_DRINK_DETAIL)
@@ -59,12 +60,30 @@ class DetailDrinkFragment :
             }
 
             R.id.imageBack -> fragmentManager?.let { popFragment(it, this) }
+
+            R.id.imageFavourite -> {
+                presenter?.apply {
+                    drink?.let {
+                        if (it.isFavourite) removeFavourite(it.id) else insertFavourite(it)
+                    }
+                }
+            }
         }
     }
 
     override fun showDetailDrink(drink: Drink) {
         this.drink = drink
         initTextForDrinkInfor()
+    }
+
+    override fun isFavourite(isFavourite: Boolean) {
+        binding.imageFavourite.setColorFilter(
+            resources.getColor(if (isFavourite) R.color.color_red_ribbon else android.R.color.black)
+        )
+        this.drink?.isFavourite = isFavourite
+    }
+
+    override fun showErrorLocalDb() {
     }
 
     override fun showError() {
@@ -82,7 +101,6 @@ class DetailDrinkFragment :
         binding.progressDrinkLoading.hide()
     }
 
-    @Suppress("DEPRECATION")
     private fun setColorTabInfor(
         ingredientColor: Int,
         instructionColor: Int,
@@ -104,6 +122,7 @@ class DetailDrinkFragment :
     }
 
     private fun initTextForDrinkInfor() {
+        drink?.id?.let { presenter?.isFavourite(it) }
         binding.apply {
             drink?.let {
                 imageDrink.loadImageByUrl(it.thumb)
