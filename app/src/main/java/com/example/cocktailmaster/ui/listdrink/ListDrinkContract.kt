@@ -10,9 +10,15 @@ interface ListDrinkContract {
         fun getListDrinkByCategory(category: String)
         fun getListDrinkByIngredient(ingredient: String)
         fun getListDrinkByFirstLetter(letter: String)
+        fun insertFavourite(drink: Drink)
+        fun getAllFavouriteDrinks()
+        fun isFavourite(id: Int)
+        fun removeFavourite(id: Int)
     }
 
     interface View : BaseView {
         fun showDrinks(drinks: List<Drink>)
+        fun showAllFavouriteDrinks(drinks: List<Drink>)
+        fun isFavourite(isFavourite: Boolean)
     }
 }

@@ -33,7 +33,7 @@ class DetailDrinkFragment :
 
     override fun initData() {
         if (id != 0) {
-            presenter = DetailDrinkPresenter(this, RepositoryUtils.getDrinkRepo())
+            presenter = DetailDrinkPresenter(this, RepositoryUtils.getDrinkRepo(context))
             id?.let { presenter?.loadDetailDrink(it) }
         }
         drink = arguments?.getParcelable(BUNDLE_DRINK_DETAIL)

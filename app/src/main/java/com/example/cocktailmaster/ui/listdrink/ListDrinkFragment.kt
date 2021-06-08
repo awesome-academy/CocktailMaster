@@ -40,7 +40,7 @@ class ListDrinkFragment :
     }
 
     override fun initData() {
-        presenter = ListDrinkPresenter(this, RepositoryUtils.getDrinkRepo())
+        presenter = ListDrinkPresenter(this, RepositoryUtils.getDrinkRepo(context))
         presenter?.apply {
             ModelConstant.apply {
                 filterName.toString().apply {
@@ -60,10 +60,17 @@ class ListDrinkFragment :
             addAll(drinks)
             adapter.setDrinks(this)
         }
-        binding.apply {
-            imageEmpty.hide()
-            textEmpty.hide()
+    }
+
+    override fun showAllFavouriteDrinks(drinks: List<Drink>) {
+        this.drinks.apply {
+            clear()
+            addAll(drinks)
+            adapter.setDrinks(this)
         }
+    }
+
+    override fun isFavourite(isFavourite: Boolean) {
     }
 
     override fun showError() {

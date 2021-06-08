@@ -68,7 +68,7 @@ class HomeFragment :
         drinks.clear()
         presenter = HomePresenter(
             this,
-            RepositoryUtils.getDrinkRepo()
+            RepositoryUtils.getDrinkRepo(context)
         )
         presenter?.execute()
     }

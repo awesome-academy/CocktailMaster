@@ -2,11 +2,13 @@ package com.example.cocktailmaster.data.repository
 
 import com.example.cocktailmaster.data.model.Drink
 import com.example.cocktailmaster.data.source.DrinksDataSource
+import com.example.cocktailmaster.data.source.local.utils.OnLocalDataCallback
 import com.example.cocktailmaster.data.source.remote.utils.RequestAPICallback
 
-class DrinksRemoteRepository private constructor(
-    private val remote: DrinksDataSource
-) : DrinksDataSource {
+class DrinksRepository private constructor(
+    private val remote: DrinksDataSource.Remote,
+    private val local: DrinksDataSource.Local
+) : DrinksDataSource.Remote, DrinksDataSource.Local {
 
     override fun searchDrinks(query: String, callback: RequestAPICallback<List<Drink>>) {
         remote.searchDrinks(query, callback)
@@ -41,10 +43,28 @@ class DrinksRemoteRepository private constructor(
         remote.getDrinkById(id, callback)
     }
 
-    companion object {
-        private var instance: DrinksRemoteRepository? = null
+    override fun insertDrink(drink: Drink, callback: OnLocalDataCallback<Unit>) {
+        local.insertDrink(drink, callback)
+    }
 
-        fun getInstace(drinksDataSource: DrinksDataSource) =
-            instance ?: DrinksRemoteRepository(drinksDataSource).also { instance = it }
+    override fun getAllFavouriteDrinks(callback: OnLocalDataCallback<List<Drink>>) {
+        local.getAllFavouriteDrinks(callback)
+    }
+
+    override fun isFavourite(id: Int, callback: OnLocalDataCallback<Boolean>) {
+        local.isFavourite(id, callback)
+    }
+
+    override fun removeFavouriteDrink(id: Int, callback: OnLocalDataCallback<Unit>) {
+        local.removeFavouriteDrink(id, callback)
+    }
+
+    companion object {
+        private var instance: DrinksRepository? = null
+
+        fun getInstace(
+            remote: DrinksDataSource.Remote,
+            local: DrinksDataSource.Local) =
+            instance ?: DrinksRepository(remote, local).also { instance = it }
     }
 }
