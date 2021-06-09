@@ -48,6 +48,7 @@ class ListDrinkFragment :
                         CATEGORY -> getListDrinkByCategory(this)
                         INGREDIENT -> getListDrinkByIngredient(this)
                         FIRST_LETTER -> getListDrinkByFirstLetter(this)
+                        DRINK_NAME -> getDrinkByName(this)
                     }
                 }
             }
@@ -70,7 +71,7 @@ class ListDrinkFragment :
         }
     }
 
-    override fun isFavourite(isFavourite: Boolean) {
+    override fun isFavourite(isFavourite: Boolean, position: Int) {
     }
 
     override fun showError() {
@@ -97,7 +98,7 @@ class ListDrinkFragment :
     private fun onClickDrinkItem(id: Int) {
         fragmentManager?.let {
             replaceFragment(
-                it, DetailDrinkFragment.getInstance(null , id)
+                it, DetailDrinkFragment.getInstance(null, id)
             )
         }
     }

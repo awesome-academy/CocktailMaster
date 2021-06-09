@@ -6,11 +6,16 @@ import com.example.cocktailmaster.data.model.Drink
 
 interface DetailDrinkContract {
 
-    interface Presenter: BasePresenter {
+    interface Presenter : BasePresenter {
         fun loadDetailDrink(id: Int)
+        fun isFavourite(id: Int)
+        fun removeFavourite(id: Int)
+        fun insertFavourite(drink: Drink)
     }
 
-    interface View: BaseView {
+    interface View : BaseView {
         fun showDetailDrink(drink: Drink)
+        fun isFavourite(isFavourite: Boolean)
+        fun showErrorLocalDb()
     }
 }

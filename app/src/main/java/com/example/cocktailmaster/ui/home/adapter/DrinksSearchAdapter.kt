@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cocktailmaster.data.model.Drink
 import com.example.cocktailmaster.databinding.ItemSearchDrinksBinding
 
-class DrinksSearchAdapter : RecyclerView.Adapter<DrinksSearchAdapter.ViewHolder>() {
+class DrinksSearchAdapter(
+    private val onClick: (String) -> Unit
+) : RecyclerView.Adapter<DrinksSearchAdapter.ViewHolder>() {
     private val drinks = mutableListOf<Drink>()
 
     override fun onCreateViewHolder(
@@ -17,7 +19,7 @@ class DrinksSearchAdapter : RecyclerView.Adapter<DrinksSearchAdapter.ViewHolder>
 
         val binding =
             ItemSearchDrinksBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding.root, binding)
+        return ViewHolder(binding.root, binding , onClick)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -36,10 +38,20 @@ class DrinksSearchAdapter : RecyclerView.Adapter<DrinksSearchAdapter.ViewHolder>
 
     class ViewHolder(
         itemView: View,
-        private val binding: ItemSearchDrinksBinding
+        private val binding: ItemSearchDrinksBinding,
+        private val onClick: (String) -> Unit
     ) : RecyclerView.ViewHolder(itemView) {
 
+        private var name = ""
+
+        init {
+            itemView.setOnClickListener {
+                onClick(name)
+            }
+        }
+
         fun bindView(drink: Drink) {
+            name = drink.name
             binding.textDrinkItem.text = drink.name
         }
     }

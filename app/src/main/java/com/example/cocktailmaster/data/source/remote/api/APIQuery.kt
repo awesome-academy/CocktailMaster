@@ -45,4 +45,9 @@ object APIQuery {
         .appendAuthorityAndContent(APIConstant.API_LOOKUP)
         .appendQueryParameter(ParameterConstant.INGREDIENT_PARAM, id.toString())
         .toString()
+
+    fun getDrinkByName(name: String) = Uri.Builder()
+        .appendAuthorityAndContent(APIConstant.API_SEARCH)
+        .appendQueryParameter(ParameterConstant.SEARCH_PARAM, name)
+        .toString()
 }
