@@ -18,7 +18,7 @@ class DrinksRemoteDataSource private constructor() : DrinksDataSource.Remote {
 
     override fun getRandomDrinks(callback: RequestAPICallback<Drink>) {
         RemoteRandomDrinkAsynctask(callback) {
-            getRandomDrinks()[0]
+            getRandomDrinks()?.get(0)
         }.execute()
     }
 
@@ -51,7 +51,7 @@ class DrinksRemoteDataSource private constructor() : DrinksDataSource.Remote {
 
     override fun getDrinkById(id: Int, callback: RequestAPICallback<Drink>) {
         RemoteAsysntask(callback) {
-            getDinkById(id)[0]
+            getDinkById(id)?.get(0)
         }.execute()
     }
 
@@ -61,46 +61,46 @@ class DrinksRemoteDataSource private constructor() : DrinksDataSource.Remote {
         }.execute()
     }
 
-    private fun getRandomDrinks(): List<Drink> {
+    private fun getRandomDrinks(): List<Drink>? {
         val jsonObject = JSONObject(httpRequestAPI(APIQuery.querryRandomDrink()))
         val jsonArray = jsonObject.optJSONArray(APINameConstant.DRINKS)
-        return parseToJsonArray(ModelConstant.DRINK, jsonArray)
+        return jsonArray?.let { parseToJsonArray(ModelConstant.DRINK, it) }
     }
 
-    private fun getListDrinkSearch(queryText: String): List<Drink> {
+    private fun getListDrinkSearch(queryText: String): List<Drink>? {
         val jsonObject = JSONObject(httpRequestAPI(APIQuery.searchDrink(queryText)))
         val jsonArray = jsonObject.optJSONArray(APINameConstant.DRINKS)
-        return parseToJsonArray(ModelConstant.DRINK, jsonArray)
+        return jsonArray?.let { parseToJsonArray(ModelConstant.DRINK, it) }
     }
 
-    private fun getListDrinkByCategory(category: String): List<Drink> {
+    private fun getListDrinkByCategory(category: String): List<Drink>? {
         val jsonObject = JSONObject(httpRequestAPI(APIQuery.filterByCategory(category)))
         val jsonArray = jsonObject.optJSONArray(APINameConstant.DRINKS)
-        return parseToJsonArray(ModelConstant.DRINK, jsonArray)
+        return jsonArray?.let { parseToJsonArray(ModelConstant.DRINK, it) }
     }
 
-    private fun getListDrinkByIngredient(ingredient: String): List<Drink> {
+    private fun getListDrinkByIngredient(ingredient: String): List<Drink>? {
         val jsonObject = JSONObject(httpRequestAPI(APIQuery.filterByIngredient(ingredient)))
         val jsonArray = jsonObject.optJSONArray(APINameConstant.DRINKS)
-        return parseToJsonArray(ModelConstant.DRINK, jsonArray)
+        return jsonArray?.let { parseToJsonArray(ModelConstant.DRINK, it) }
     }
 
-    private fun getListDrinkByFirstLetter(firstLetter: String): List<Drink> {
+    private fun getListDrinkByFirstLetter(firstLetter: String): List<Drink>? {
         val jsonObject = JSONObject(httpRequestAPI(APIQuery.filterByFirstLetter(firstLetter)))
         val jsonArray = jsonObject.optJSONArray(APINameConstant.DRINKS)
-        return parseToJsonArray(ModelConstant.DRINK, jsonArray)
+        return jsonArray?.let { parseToJsonArray(ModelConstant.DRINK, it) }
     }
 
-    private fun getDinkById(id: Int): List<Drink> {
+    private fun getDinkById(id: Int): List<Drink>? {
         val jsonObject = JSONObject(httpRequestAPI(APIQuery.lookUpDrink(id)))
         val jsonArray = jsonObject.optJSONArray(APINameConstant.DRINKS)
-        return parseToJsonArray(ModelConstant.DRINK, jsonArray)
+        return jsonArray?.let { parseToJsonArray(ModelConstant.DRINK, it) }
     }
 
-    private fun getDrinkByName(name: String): List<Drink> {
+    private fun getDrinkByName(name: String): List<Drink>? {
         val jsonObject = JSONObject(httpRequestAPI(APIQuery.getDrinkByName(name)))
         val jsonArray = jsonObject.optJSONArray(APINameConstant.DRINKS)
-        return parseToJsonArray(ModelConstant.DRINK, jsonArray)
+        return jsonArray?.let { parseToJsonArray(ModelConstant.DRINK, it) }
     }
 
     companion object {

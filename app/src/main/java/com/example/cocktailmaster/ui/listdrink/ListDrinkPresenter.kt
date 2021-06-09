@@ -70,11 +70,24 @@ class ListDrinkPresenter(
         })
     }
 
-    override fun insertFavourite(drink: Drink) {
+    override fun getDrinkById(id: Int , position: Int) {
+        drinkRepo.getDrinkById(id , object : RequestAPICallback<Drink> {
+            override fun onSuccess(data: Drink) {
+                view.showDrink(data , position)
+            }
+
+            override fun onFailed() {
+                view.showError()
+            }
+        })
+    }
+
+    override fun insertFavourite(drink: Drink , position: Int) {
         view.showLoading()
         drinkRepo.insertDrink(drink, object : OnLocalDataCallback<Unit> {
             override fun onSuccess(data: Unit) {
                 view.hideLoading()
+                isFavourite(drink.id, position)
             }
 
             override fun onFailed() {
@@ -111,11 +124,12 @@ class ListDrinkPresenter(
         })
     }
 
-    override fun removeFavourite(id: Int) {
+    override fun removeFavourite(id: Int , position: Int) {
         view.showLoading()
         drinkRepo.removeFavouriteDrink(id, object : OnLocalDataCallback<Unit> {
             override fun onSuccess(data: Unit) {
                 view.hideLoading()
+                isFavourite(id, position)
             }
 
             override fun onFailed() {

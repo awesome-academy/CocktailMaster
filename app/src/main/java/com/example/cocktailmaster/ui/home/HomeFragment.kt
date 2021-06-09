@@ -166,6 +166,13 @@ class HomeFragment :
                     binding.includeIngredients.textVodka.text.toString()
                 )
             }
+
+            R.id.imageFavourite -> {
+                loadListDrinkFragment(
+                    ModelConstant.FAVOURITE,
+                    getString(R.string.text_favourite)
+                )
+            }
         }
     }
 

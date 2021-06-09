@@ -48,11 +48,17 @@ class CategoryFragment :
     }
 
     override fun showLoading() {
-        binding.progressCategory.show()
+        binding.apply {
+            progressCategory.show()
+            imageBack.isEnabled = false
+        }
     }
 
     override fun hideLoading() {
-        binding.progressCategory.hide()
+        binding.apply {
+            progressCategory.hide()
+            imageBack.isEnabled = true
+        }
     }
 
     override fun onClick(v: View) {

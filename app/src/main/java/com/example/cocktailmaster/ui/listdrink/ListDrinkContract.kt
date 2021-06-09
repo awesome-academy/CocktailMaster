@@ -11,14 +11,16 @@ interface ListDrinkContract {
         fun getListDrinkByIngredient(ingredient: String)
         fun getListDrinkByFirstLetter(letter: String)
         fun getDrinkByName(name: String)
-        fun insertFavourite(drink: Drink)
+        fun getDrinkById(id: Int , position: Int)
+        fun insertFavourite(drink: Drink, position: Int)
         fun getAllFavouriteDrinks()
         fun isFavourite(id: Int, position: Int)
-        fun removeFavourite(id: Int)
+        fun removeFavourite(id: Int, position: Int)
     }
 
     interface View : BaseView {
         fun showDrinks(drinks: List<Drink>)
+        fun showDrink(drink: Drink, position: Int)
         fun showAllFavouriteDrinks(drinks: List<Drink>)
         fun isFavourite(isFavourite: Boolean, position: Int)
     }

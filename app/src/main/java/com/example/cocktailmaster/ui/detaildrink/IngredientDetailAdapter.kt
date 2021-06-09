@@ -6,7 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cocktailmaster.databinding.ItemIngredientDetailBinding
 
-class IngredientDetailAdapter : RecyclerView.Adapter<IngredientDetailAdapter.ViewHolder>() {
+class IngredientDetailAdapter(
+    private val clickItem: (String) -> Unit
+) : RecyclerView.Adapter<IngredientDetailAdapter.ViewHolder>() {
 
     private val ingredients = mutableListOf<IngredientDetail>()
 
@@ -17,7 +19,7 @@ class IngredientDetailAdapter : RecyclerView.Adapter<IngredientDetailAdapter.Vie
 
         val binding =
             ItemIngredientDetailBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding.root, binding)
+        return ViewHolder(binding.root, binding , clickItem)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -36,10 +38,20 @@ class IngredientDetailAdapter : RecyclerView.Adapter<IngredientDetailAdapter.Vie
 
     class ViewHolder(
         itemView: View,
-        private val binding: ItemIngredientDetailBinding
+        private val binding: ItemIngredientDetailBinding,
+        private val clickItem: (String) -> Unit
     ) : RecyclerView.ViewHolder(itemView) {
 
+        private var ingredient: String = ""
+
+        init {
+            itemView.setOnClickListener {
+                clickItem(ingredient)
+            }
+        }
+
         fun bindView(ingredientDetail: IngredientDetail) {
+            ingredient = ingredientDetail.ingredient
             binding.apply {
                 textIngredient.text = ingredientDetail.ingredient
                 textVolumn.text = ingredientDetail.volumn

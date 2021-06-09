@@ -20,4 +20,5 @@
     <string name="text_alphabet">Browse drinks by first letter</string>
     <string name="text_empty">No data found!</string>
     <string name="text_filter_first_letter">Drinks start with %s</string>
+    <string name="text_favourite">Favourite</string>
 </resources>

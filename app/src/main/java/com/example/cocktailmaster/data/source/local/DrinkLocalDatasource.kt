@@ -20,7 +20,7 @@ class DrinkLocalDatasource private constructor(
     override fun getAllFavouriteDrinks(callback: OnLocalDataCallback<List<Drink>>) {
         LocalAsynctask<Unit, List<Drink>>(callback) {
             dao.getAllFavouriteDrinks()
-        }.execute()
+        }.execute(Unit)
     }
 
     override fun isFavourite(id: Int, callback: OnLocalDataCallback<Boolean>) {
