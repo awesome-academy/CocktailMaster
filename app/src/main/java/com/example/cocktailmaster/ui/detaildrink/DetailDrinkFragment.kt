@@ -6,10 +6,9 @@ import com.example.cocktailmaster.R
 import com.example.cocktailmaster.base.BaseFragment
 import com.example.cocktailmaster.data.model.Drink
 import com.example.cocktailmaster.databinding.FragmentDrinkDetailBinding
-import com.example.cocktailmaster.ui.RepositoryUtils
-import com.example.cocktailmaster.ui.hide
-import com.example.cocktailmaster.ui.popFragment
-import com.example.cocktailmaster.ui.show
+import com.example.cocktailmaster.ui.*
+import com.example.cocktailmaster.ui.listdrink.ListDrinkFragment
+import com.example.cocktailmaster.utils.ModelConstant
 import com.example.cocktailmaster.utils.loadImageByUrl
 
 @Suppress("DEPRECATION")
@@ -19,7 +18,7 @@ class DetailDrinkFragment :
     DetailDrinkContract.View {
 
     private var drink: Drink? = null
-    private val adapter = IngredientDetailAdapter()
+    private val adapter = IngredientDetailAdapter(::onClickIngredientItem)
     private var presenter: DetailDrinkPresenter? = null
     private val id by lazy { arguments?.getInt(BUNDLE_DRINK_ID, 0) }
 
@@ -94,11 +93,17 @@ class DetailDrinkFragment :
     }
 
     override fun showLoading() {
-        binding.progressDrinkLoading.show()
+        binding.apply {
+            progressDrinkLoading.show()
+            imageBack.isEnabled = false
+        }
     }
 
     override fun hideLoading() {
-        binding.progressDrinkLoading.hide()
+        binding.apply {
+            progressDrinkLoading.hide()
+            imageBack.isEnabled = true
+        }
     }
 
     private fun setColorTabInfor(
@@ -150,6 +155,12 @@ class DetailDrinkFragment :
             }
         }
         adapter.setDetailIngredients(detailIngredients);
+    }
+
+    private fun onClickIngredientItem(ingredient: String) {
+        fragmentManager?.let {
+            replaceFragment(it, ListDrinkFragment.getInstance(ModelConstant.INGREDIENT, ingredient))
+        }
     }
 
     companion object {

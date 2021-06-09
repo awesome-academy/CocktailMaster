@@ -9,7 +9,7 @@ const val DRINK_REQUEST_NUMBER = 6
 
 class RemoteRandomDrinkAsynctask(
     private val callback: RequestAPICallback<Drink>,
-    private val handle: () -> Drink
+    private val handle: () -> Drink?
 ) : AsyncTask<Unit, Drink, Unit>() {
 
     override fun doInBackground(vararg params: Unit?) {

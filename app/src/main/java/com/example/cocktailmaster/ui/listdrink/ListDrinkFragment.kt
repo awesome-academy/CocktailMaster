@@ -17,7 +17,7 @@ class ListDrinkFragment :
 
     private var presenter: ListDrinkPresenter? = null
     private val drinks = mutableListOf<Drink>()
-    private val adapter = ListDrinkAdapter(::onClickDrinkItem)
+    private val adapter = ListDrinkAdapter(::onClickDrinkItem, ::onClickFavourite)
     private val filterType by lazy { arguments?.getString(BUNDLE_DRINKS_FILTER) }
     private val filterName by lazy { arguments?.getString(BUNDLE_FILTER_NAME) }
 
@@ -49,6 +49,7 @@ class ListDrinkFragment :
                         INGREDIENT -> getListDrinkByIngredient(this)
                         FIRST_LETTER -> getListDrinkByFirstLetter(this)
                         DRINK_NAME -> getDrinkByName(this)
+                        FAVOURITE -> getAllFavouriteDrinks()
                     }
                 }
             }
@@ -59,19 +60,34 @@ class ListDrinkFragment :
         this.drinks.apply {
             clear()
             addAll(drinks)
+            forEachIndexed { index, drink ->
+                presenter?.isFavourite(drink.id, index)
+            }
             adapter.setDrinks(this)
         }
+    }
+
+    override fun showDrink(drink: Drink, position: Int) {
+        presenter?.insertFavourite(drink, position)
     }
 
     override fun showAllFavouriteDrinks(drinks: List<Drink>) {
         this.drinks.apply {
             clear()
             addAll(drinks)
+            forEach {
+                it.isFavourite = true
+            }
             adapter.setDrinks(this)
         }
     }
 
     override fun isFavourite(isFavourite: Boolean, position: Int) {
+        drinks[position].isFavourite = isFavourite
+        if (filterType == ModelConstant.FAVOURITE && !isFavourite) {
+            drinks.removeAt(position)
+        }
+        adapter.setDrinks(drinks)
     }
 
     override fun showError() {
@@ -82,24 +98,49 @@ class ListDrinkFragment :
     }
 
     override fun showLoading() {
-        binding.progressListDrink.show()
+        binding.apply {
+            progressListDrink.show()
+            imageBack.isEnabled = false
+        }
     }
 
     override fun hideLoading() {
-        binding.progressListDrink.hide()
+        binding.apply {
+            progressListDrink.hide()
+            imageBack.isEnabled = true
+        }
     }
 
     override fun onClick(v: View) {
         if (v.id == R.id.imageBack) {
-            fragmentManager?.let { popFragment(it, this) }
+            activity?.onBackPressed()
         }
     }
 
-    private fun onClickDrinkItem(id: Int) {
+    private fun onClickDrinkItem(drink: Drink) {
         fragmentManager?.let {
-            replaceFragment(
-                it, DetailDrinkFragment.getInstance(null, id)
-            )
+            ModelConstant.apply {
+                replaceFragment(
+                    it,
+                    if (listOf(FIRST_LETTER, FAVOURITE).contains(filterType))
+                        DetailDrinkFragment.getInstance(drink, 0) else
+                        DetailDrinkFragment.getInstance(null, drink.id)
+                )
+            }
+        }
+    }
+
+    private fun onClickFavourite(drink: Drink, position: Int) {
+        presenter?.let {
+            if (drink.isFavourite) {
+                it.removeFavourite(drink.id, position)
+            } else {
+                if (drink.alcoholic.isNullOrEmpty()) {
+                    it.getDrinkById(drink.id, position)
+                } else {
+                    it.insertFavourite(drink, position)
+                }
+            }
         }
     }
 

@@ -3,11 +3,9 @@ package com.example.cocktailmaster.ui.ingredient
 import android.view.View
 import com.example.cocktailmaster.R
 import com.example.cocktailmaster.base.BaseFragment
-import com.example.cocktailmaster.data.model.Drink
 import com.example.cocktailmaster.data.model.Ingredient
 import com.example.cocktailmaster.databinding.FragmentIngredientsBinding
 import com.example.cocktailmaster.ui.*
-import com.example.cocktailmaster.ui.detaildrink.DetailDrinkFragment
 import com.example.cocktailmaster.ui.listdrink.ListDrinkFragment
 import com.example.cocktailmaster.utils.ModelConstant
 
@@ -46,11 +44,17 @@ class IngredientFragment :
     }
 
     override fun showLoading() {
-        binding.progressIngredient.show()
+        binding.apply {
+            progressIngredient.show()
+            imageBack.isEnabled = false
+        }
     }
 
     override fun hideLoading() {
-        binding.progressIngredient.hide()
+        binding.apply {
+            progressIngredient.hide()
+            imageBack.isEnabled = true
+        }
     }
 
     override fun onClick(v: View) {
@@ -62,7 +66,7 @@ class IngredientFragment :
     private fun onClickIngredientItem(ingredient: Ingredient) {
         fragmentManager?.let {
             replaceFragment(
-                it, ListDrinkFragment.getInstance(ModelConstant.INGREDIENT , ingredient.name)
+                it, ListDrinkFragment.getInstance(ModelConstant.INGREDIENT, ingredient.name)
             )
         }
     }
