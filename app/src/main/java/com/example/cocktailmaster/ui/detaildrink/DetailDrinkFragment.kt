@@ -8,6 +8,7 @@ import com.example.cocktailmaster.data.model.Drink
 import com.example.cocktailmaster.databinding.FragmentDrinkDetailBinding
 import com.example.cocktailmaster.ui.*
 import com.example.cocktailmaster.ui.listdrink.ListDrinkFragment
+import com.example.cocktailmaster.utils.AsynctaskState
 import com.example.cocktailmaster.utils.ModelConstant
 import com.example.cocktailmaster.utils.loadImageByUrl
 
@@ -23,7 +24,7 @@ class DetailDrinkFragment :
     private val id by lazy { arguments?.getInt(BUNDLE_DRINK_ID, 0) }
 
     override fun initViews() {
-        binding.apply {
+        binding?.apply {
             listOf(textIngredients, textInstruction, imageBack, imageFavourite).forEach {
                 it.setOnClickListener(this@DetailDrinkFragment)
             }
@@ -42,31 +43,13 @@ class DetailDrinkFragment :
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.textIngredients -> {
-                setColorTabInfor(android.R.color.black, R.color.color_olso_grey, true)
-                binding.apply {
-                    recyclerIngredientDetailInclude.root.show()
-                    textInstructionDetail.hide()
-                }
-            }
+            R.id.textIngredients -> onClickTabIngredients()
 
-            R.id.textInstruction -> {
-                setColorTabInfor(R.color.color_olso_grey, android.R.color.black, false)
-                binding.apply {
-                    recyclerIngredientDetailInclude.root.hide()
-                    textInstructionDetail.show()
-                }
-            }
+            R.id.textInstruction -> onClickTabInstruction()
 
-            R.id.imageBack -> fragmentManager?.let { popFragment(it, this) }
+            R.id.imageBack -> onClickBack()
 
-            R.id.imageFavourite -> {
-                presenter?.apply {
-                    drink?.let {
-                        if (it.isFavourite) removeFavourite(it.id) else insertFavourite(it)
-                    }
-                }
-            }
+            R.id.imageFavourite -> onClickFavourite()
         }
     }
 
@@ -76,7 +59,7 @@ class DetailDrinkFragment :
     }
 
     override fun isFavourite(isFavourite: Boolean) {
-        binding.imageFavourite.setColorFilter(
+        binding?.imageFavourite?.setColorFilter(
             resources.getColor(if (isFavourite) R.color.color_red_ribbon else android.R.color.black)
         )
         this.drink?.isFavourite = isFavourite
@@ -86,23 +69,49 @@ class DetailDrinkFragment :
     }
 
     override fun showError() {
-        binding.apply {
+        binding?.apply {
             textEmpty.show()
             imageEmpty.show()
         }
     }
 
     override fun showLoading() {
-        binding.apply {
-            progressDrinkLoading.show()
-            imageBack.isEnabled = false
-        }
+        binding?.progressDrinkLoading?.show()
     }
 
     override fun hideLoading() {
-        binding.apply {
-            progressDrinkLoading.hide()
-            imageBack.isEnabled = true
+        binding?.progressDrinkLoading?.hide()
+    }
+
+    private fun onClickBack() {
+        if (!AsynctaskState.isFinished) {
+            AsynctaskState.isCancelled = true
+        }
+        AsynctaskState.isFinished = false
+        fragmentManager?.let { popFragment(it, this) }
+    }
+
+    private fun onClickFavourite() {
+        presenter?.apply {
+            drink?.let {
+                if (it.isFavourite) removeFavourite(it.id) else insertFavourite(it)
+            }
+        }
+    }
+
+    private fun onClickTabInstruction() {
+        setColorTabInfor(R.color.color_olso_grey, android.R.color.black, false)
+        binding?.apply {
+            recyclerIngredientDetailInclude.root.hide()
+            textInstructionDetail.show()
+        }
+    }
+
+    private fun onClickTabIngredients() {
+        setColorTabInfor(android.R.color.black, R.color.color_olso_grey, true)
+        binding?.apply {
+            recyclerIngredientDetailInclude.root.show()
+            textInstructionDetail.hide()
         }
     }
 
@@ -111,7 +120,7 @@ class DetailDrinkFragment :
         instructionColor: Int,
         isSystemColor: Boolean
     ) {
-        binding.apply {
+        binding?.apply {
             if (isSystemColor) {
                 viewStraightIngredient.setBackgroundColor(resources.getColor(ingredientColor))
                 textIngredients.setTextColor(resources.getColor(ingredientColor))
@@ -128,7 +137,7 @@ class DetailDrinkFragment :
 
     private fun initTextForDrinkInfor() {
         drink?.id?.let { presenter?.isFavourite(it) }
-        binding.apply {
+        binding?.apply {
             drink?.let {
                 imageDrink.loadImageByUrl(it.thumb)
                 textDrinkName.text = it.name

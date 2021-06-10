@@ -8,6 +8,7 @@ import com.example.cocktailmaster.data.model.Drink
 import com.example.cocktailmaster.databinding.FragmentListDrinkBinding
 import com.example.cocktailmaster.ui.*
 import com.example.cocktailmaster.ui.detaildrink.DetailDrinkFragment
+import com.example.cocktailmaster.utils.AsynctaskState
 import com.example.cocktailmaster.utils.ModelConstant
 
 class ListDrinkFragment :
@@ -22,7 +23,7 @@ class ListDrinkFragment :
     private val filterName by lazy { arguments?.getString(BUNDLE_FILTER_NAME) }
 
     override fun initViews() {
-        binding.apply {
+        binding?.apply {
             imageBack.setOnClickListener(this@ListDrinkFragment)
             recyclerListDrink.adapter = adapter
             ModelConstant.apply {
@@ -91,28 +92,26 @@ class ListDrinkFragment :
     }
 
     override fun showError() {
-        binding.apply {
+        binding?.apply {
             imageEmpty.show()
             textEmpty.show()
         }
     }
 
     override fun showLoading() {
-        binding.apply {
-            progressListDrink.show()
-            imageBack.isEnabled = false
-        }
+        binding?.progressListDrink?.show()
     }
 
     override fun hideLoading() {
-        binding.apply {
-            progressListDrink.hide()
-            imageBack.isEnabled = true
-        }
+        binding?.progressListDrink?.hide()
     }
 
     override fun onClick(v: View) {
         if (v.id == R.id.imageBack) {
+            if (!AsynctaskState.isFinished) {
+                AsynctaskState.isCancelled = true
+            }
+            AsynctaskState.isFinished = false
             activity?.onBackPressed()
         }
     }

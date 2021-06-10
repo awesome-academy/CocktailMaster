@@ -37,7 +37,7 @@ class HomeFragment :
     private val searchDrinks = mutableListOf<Drink>()
 
     override fun initViews() {
-        binding.apply {
+        binding?.apply {
             listOf(
                 imageSearch,
                 imageFavourite,
@@ -75,12 +75,12 @@ class HomeFragment :
     }
 
     override fun showRandomDrink(drink: Drink) {
-        binding.textRandomDrinks.show()
+        binding?.textRandomDrinks?.show()
         this.drinks.apply {
             add(drink)
             drinkAdapter.setDrinks(this)
         }
-        binding.cardDrinks.show()
+        binding?.cardDrinks?.show()
     }
 
     override fun showAlphabets(alphabets: List<Char>) {
@@ -99,85 +99,41 @@ class HomeFragment :
     }
 
     override fun showLoading() {
-        binding.progressDrinkLoading.show()
+        binding?.progressDrinkLoading?.show()
     }
 
     override fun hideLoading() {
-        binding.progressDrinkLoading.hide()
+        binding?.progressDrinkLoading?.hide()
     }
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.imageSearch -> binding.searchDrinks.show()
+            R.id.imageSearch -> binding?.searchDrinks?.show()
 
-            R.id.textSeeAllCategory -> {
-                fragmentManager?.let { replaceFragment(it, CategoryFragment()) }
-            }
+            R.id.textSeeAllCategory -> onClickSeeAllCategory()
 
-            R.id.textSeeAllIngredient -> {
-                fragmentManager?.let { replaceFragment(it, IngredientFragment()) }
-            }
+            R.id.textSeeAllIngredient -> onClickSeeAllIngredients()
 
-            R.id.imageCocktailDrink -> {
-                loadListDrinkFragment(
-                    ModelConstant.CATEGORY,
-                    binding.includeCategories.textCocktailDrink.text.toString()
-                )
-            }
+            R.id.imageCocktailDrink -> onClickCocktailCategory()
 
-            R.id.imageCocoaDrink -> {
-                loadListDrinkFragment(
-                    ModelConstant.CATEGORY,
-                    binding.includeCategories.textCocoaDrink.text.toString()
-                )
-            }
+            R.id.imageCocoaDrink -> onClickCocoaCategory()
 
-            R.id.imageOriginalDrink -> {
-                loadListDrinkFragment(
-                    ModelConstant.CATEGORY,
-                    binding.includeCategories.textOriginalDrink.text.toString()
-                )
-            }
+            R.id.imageOriginalDrink -> onClickOrdinaryCategory()
 
-            R.id.linearGin -> {
-                loadListDrinkFragment(
-                    ModelConstant.INGREDIENT,
-                    binding.includeIngredients.textGin.text.toString()
-                )
-            }
+            R.id.linearGin -> onClickGinIngredient()
 
-            R.id.linearRum -> {
-                loadListDrinkFragment(
-                    ModelConstant.INGREDIENT,
-                    binding.includeIngredients.textRum.text.toString()
-                )
-            }
+            R.id.linearRum -> onClickRumIngredient()
 
-            R.id.linearTequila -> {
-                loadListDrinkFragment(
-                    ModelConstant.INGREDIENT,
-                    binding.includeIngredients.textTequila.text.toString()
-                )
-            }
+            R.id.linearTequila -> onClickTequilaIngredient()
 
-            R.id.linearVodka -> {
-                loadListDrinkFragment(
-                    ModelConstant.INGREDIENT,
-                    binding.includeIngredients.textVodka.text.toString()
-                )
-            }
+            R.id.linearVodka -> onClickVodkaIngredient()
 
-            R.id.imageFavourite -> {
-                loadListDrinkFragment(
-                    ModelConstant.FAVOURITE,
-                    getString(R.string.text_favourite)
-                )
-            }
+            R.id.imageFavourite -> onClickFavourite()
         }
     }
 
     override fun onClose(): Boolean {
-        binding.apply {
+        binding?.apply {
             searchDrinks.hide()
             recyclerDrinksSearch.hide()
             cardDrinks.show()
@@ -192,7 +148,7 @@ class HomeFragment :
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        binding.apply {
+        binding?.apply {
             recyclerDrinksSearch.show()
             cardDrinks.hide()
         }
@@ -204,7 +160,7 @@ class HomeFragment :
 
     override fun onPause() {
         super.onPause()
-        binding.apply {
+        binding?.apply {
             searchDrinks.apply {
                 setQuery("", false)
                 clearFocus()
@@ -213,6 +169,68 @@ class HomeFragment :
         }
         searchDrinks.clear()
         drinkSearchAdapter.setDrinks(searchDrinks)
+    }
+
+    private fun onClickSeeAllCategory() =
+        fragmentManager?.let { replaceFragment(it, CategoryFragment()) }
+
+    private fun onClickSeeAllIngredients() =
+        fragmentManager?.let { replaceFragment(it, IngredientFragment()) }
+
+    private fun onClickCocktailCategory() {
+        loadListDrinkFragment(
+            ModelConstant.CATEGORY,
+            binding?.includeCategories?.textCocktailDrink?.text.toString()
+        )
+    }
+
+    private fun onClickCocoaCategory() {
+        loadListDrinkFragment(
+            ModelConstant.CATEGORY,
+            binding?.includeCategories?.textCocoaDrink?.text.toString()
+        )
+    }
+
+    private fun onClickOrdinaryCategory() {
+        loadListDrinkFragment(
+            ModelConstant.CATEGORY,
+            binding?.includeCategories?.textOriginalDrink?.text.toString()
+        )
+    }
+
+    private fun onClickGinIngredient() {
+        loadListDrinkFragment(
+            ModelConstant.INGREDIENT,
+            binding?.includeIngredients?.textGin?.text.toString()
+        )
+    }
+
+    private fun onClickRumIngredient() {
+        loadListDrinkFragment(
+            ModelConstant.INGREDIENT,
+            binding?.includeIngredients?.textRum?.text.toString()
+        )
+    }
+
+    private fun onClickTequilaIngredient() {
+        loadListDrinkFragment(
+            ModelConstant.INGREDIENT,
+            binding?.includeIngredients?.textTequila?.text.toString()
+        )
+    }
+
+    private fun onClickVodkaIngredient() {
+        loadListDrinkFragment(
+            ModelConstant.INGREDIENT,
+            binding?.includeIngredients?.textVodka?.text.toString()
+        )
+    }
+
+    private fun onClickFavourite() {
+        loadListDrinkFragment(
+            ModelConstant.FAVOURITE,
+            getString(R.string.text_favourite)
+        )
     }
 
     private fun onClickDrinkItem(drink: Drink) {

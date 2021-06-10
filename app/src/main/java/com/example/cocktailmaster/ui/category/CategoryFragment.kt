@@ -7,6 +7,7 @@ import com.example.cocktailmaster.data.model.Category
 import com.example.cocktailmaster.databinding.FragmentCategoryLayoutBinding
 import com.example.cocktailmaster.ui.*
 import com.example.cocktailmaster.ui.listdrink.ListDrinkFragment
+import com.example.cocktailmaster.utils.AsynctaskState
 import com.example.cocktailmaster.utils.ModelConstant
 
 class CategoryFragment :
@@ -19,7 +20,7 @@ class CategoryFragment :
     private val categoryAdapter = CategoryAdapter(::onClickCategoryItem)
 
     override fun initViews() {
-        binding.apply {
+        binding?.apply {
             recyclerCategories.adapter = categoryAdapter
             imageBack.setOnClickListener(this@CategoryFragment)
         }
@@ -34,35 +35,33 @@ class CategoryFragment :
     override fun showCategories(categories: List<Category>) {
         this.categories.addAll(categories)
         categoryAdapter.setCategories(this.categories)
-        binding.apply {
+        binding?.apply {
             imageEmpty.hide()
             textEmpty.hide()
         }
     }
 
     override fun showError() {
-        binding.apply {
+        binding?.apply {
             textEmpty.show()
             imageEmpty.show()
         }
     }
 
     override fun showLoading() {
-        binding.apply {
-            progressCategory.show()
-            imageBack.isEnabled = false
-        }
+        binding?.progressCategory?.show()
     }
 
     override fun hideLoading() {
-        binding.apply {
-            progressCategory.hide()
-            imageBack.isEnabled = true
-        }
+        binding?.progressCategory?.hide()
     }
 
     override fun onClick(v: View) {
         if (v.id == R.id.imageBack) {
+            if (!AsynctaskState.isFinished) {
+                AsynctaskState.isCancelled = true
+            }
+            AsynctaskState.isFinished = false
             fragmentManager?.let { popFragment(it, this) }
         }
     }

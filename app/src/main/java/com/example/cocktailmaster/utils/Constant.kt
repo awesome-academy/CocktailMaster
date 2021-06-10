@@ -16,3 +16,8 @@ object APINameConstant {
 object AlphabetsConstant {
     val ALPHABETS = "abcdefghijklmnopqrstuvwxyz".toCharArray()
 }
+
+object AsynctaskState {
+    var isCancelled = false
+    var isFinished = false
+}

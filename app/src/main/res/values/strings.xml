@@ -21,4 +21,6 @@
     <string name="text_empty">No data found!</string>
     <string name="text_filter_first_letter">Drinks start with %s</string>
     <string name="text_favourite">Favourite</string>
+    <string name="text_connect">Connect</string>
+    <string name="text_cancel">Cancel</string>
 </resources>

@@ -13,7 +13,7 @@ abstract class BaseFragment<VB : ViewBinding>(
     private val inflate: Inflate<VB>
 ) : Fragment() {
     private var _binding: VB? = null
-    val binding get() = _binding!!
+    val binding get() = _binding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -21,7 +21,7 @@ abstract class BaseFragment<VB : ViewBinding>(
         savedInstanceState: Bundle?
     ): View? {
         _binding = inflate.invoke(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
