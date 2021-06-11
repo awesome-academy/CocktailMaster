@@ -12,6 +12,7 @@ fun httpRequestAPI(api: String): String {
     try {
         val url = URL(api)
         urlConnection = url.openConnection() as HttpURLConnection
+        urlConnection.connect()
         val bf = BufferedReader(InputStreamReader(urlConnection.inputStream))
         bf.forEachLine { dataResponse.append(it) }
     } catch (e: Exception) {
